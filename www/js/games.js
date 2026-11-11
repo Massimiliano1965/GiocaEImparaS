@@ -844,7 +844,7 @@ const Games = (() => {
       prompt = classId >= 7 ? "Collega ogni equazione alla sua soluzione." : "Collega ogni operazione al suo risultato.";
       if (pairs.some(p => /[a-zà-ù]{4,}/i.test(String(p.l)))) prompt = "Collega ogni quesito alla sua soluzione.";   // c'è anche geometria: titolo neutro
     } else if (subjectId === "inglese") {
-      const theme = pick(ENG_PAIRS[(classId >= 8 ? "S" : classId <= 1 ? "A" : classId <= 4 ? "B" : "C")]);
+      const theme = pick(Questions.inClass(ENG_PAIRS[(classId >= 8 ? "S" : classId <= 1 ? "A" : classId <= 4 ? "B" : "C")], classId));
       pairs = shuffle(theme.pairs).slice(0, 4).map(p => ({ l: p[0], r: p[1] }));
       prompt = theme.prompt;
       eng = true; rEn = !!theme.rEn;   // per la voce: parole a sinistra in inglese; a destra inglese solo se rEn

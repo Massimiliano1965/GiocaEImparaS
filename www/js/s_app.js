@@ -14,8 +14,8 @@
     { id: "scienze", name: "Scienze", color: "#7BE38B", top: 82.6, h: 15.3 }
   ];
   const YEARS = [
-    { id: 8, label: "1ª", ready: true }, { id: 9, label: "2ª", ready: false }, { id: 10, label: "3ª", ready: false },
-    { id: 11, label: "4ª", ready: false }, { id: 12, label: "5ª", ready: false }
+    { id: 8, label: "1ª", ready: true }, { id: 9, label: "2ª", ready: true }, { id: 10, label: "3ª", ready: true },
+    { id: 11, label: "4ª", ready: true }, { id: 12, label: "5ª", ready: true }
   ];
   const GAME_SHARE = 0.8;   // quota di giri che sono giochi; il resto sono domande a risposta multipla
 
