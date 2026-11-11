@@ -18,5 +18,16 @@ Aggiornato: 11/11/2026
 - APK Android.
 - «Slot frasi» e «Campo dei numeri» sono spenti: hanno ancora frasi e numeri da scuola media.
 
+## Come aggiungere un anno (2ª–5ª superiore)
+Tutto sta in `www/js/s_data.js`. Per ogni anno nuovo (classe 9 = 2ª, 10 = 3ª, 11 = 4ª, 12 = 5ª):
+1. Domande: aggiungere a `BANK` voci con `cl: [9, 9]` (stesso formato: `q`, 4 risposte con la giusta per prima, `e` spiegazione). Circa 24 per materia.
+2. Coppie (`pairs`), sequenze (`seqs`), «Trova l'errore» (`errors`), «Stima» (`stima`), «Completa» (`cloze`): stesse strutture, con `cl` dell'anno.
+3. Se un tema di coppie ha una frase nuova («Collega ogni … al suo …»), aggiungere la riga in `askRules`.
+4. Matematica: `math()` oggi usa solo `math8()`; aggiungere `math9()` ecc. e scegliere per classe. Lo stesso per `mathPairs`, `filaMath`, `mathError`, `mathStima`.
+5. In `www/js/s_app.js`, in `YEARS`, mettere `ready: true` all'anno pronto.
+6. Controllo: aprire `www/index.html` e far girare tutte le materie; nessun errore in console.
+
+Regole di Massi per questa app: icone SVG mai emoji; mostrargli l'immagine prima di pushare e aspettare l'ok; testi brevi; contenuti esatti e sul programma generale dell'anno, solo materie comuni a tutte le scuole.
+
 ## Per aprire una nuova chat
 > Lavoriamo su «Gioca e Impara S» (repo Massimiliano1965/GiocaEImparaS, ramo main). Leggi prima STATO.md. Oggi voglio fare: ...
