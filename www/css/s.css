@@ -120,7 +120,8 @@ body.s-app #gbox:empty { display: none; }
 .sg-opt.ok { border-color: #5BE37A; background: rgba(40,110,60,.55); }
 
 /* ---- i giochi del motore adattati allo schermo delle superiori */
-body.s-app .g2 { min-height: min(440px, calc(100dvh - 268px)); }
+/* il riquadro del gioco cresce con il contenuto: su schermi bassi (PC, finestra piccola) la pagina scorre invece di tagliare le risposte */
+body.s-app .g2 { height: auto; min-height: clamp(400px, calc(100dvh - 250px), 620px); }
 body.s-app .s-prompt small { margin-top: 4px; font-size: 12px; }
 body.s-app .fila-slot { min-height: 42px; padding-top: 4px; padding-bottom: 4px; }
 body.s-app .fila-slots { gap: 6px; }
