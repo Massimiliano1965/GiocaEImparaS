@@ -614,7 +614,7 @@
   Games.register("chisono", {
     subjects: ALL,
     make: (c, s) => {
-      const d = s === "matematica" ? whoMath() : pick(WHO[s] || []);
+      const d = s === "matematica" ? whoMath() : c === 8 ? pick(WHO[s] || []) : null;   // gli indizi scritti sono della 1ª superiore: negli altri anni il gioco parte solo per matematica
       if (!d) return null;
       const opts = shuffle([d[0], ...d[1]]);
       return { kind: "chisono", title: "Chi sono?", prompt: s === "matematica" ? "Che numero sono?" : s === "inglese" ? "Che parola è?" : "Chi sono?", hint: "Gli indizi escono uno alla volta. Rispondi appena lo sai: meno indizi usi, più vale. Un errore si perdona.",
