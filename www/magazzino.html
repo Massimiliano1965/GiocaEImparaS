@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Gioca e Impara S — magazzino giochi</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/s.css">
+  <link rel="stylesheet" href="css/s_magazzino.css">
+  <style>
+    .mz { padding: 12px; display: grid; gap: 10px; max-width: 520px; margin: 0 auto; }
+    .mz h1 { margin: 0; font-size: 20px; font-weight: 600; }
+    .mz-pick { display: flex; flex-wrap: wrap; gap: 6px; }
+    .mz-pick button, .mz select { font: inherit; font-size: 14px; color: #EEF2FA; background: rgba(13,22,44,.82); border: 1.5px solid rgba(255,255,255,.14); border-radius: 10px; padding: 7px 10px; }
+    .mz-pick button.on { border-color: #6FB6FF; }
+    #mz-out { margin: 0; font-size: 14px; color: #D5DCEC; }
+  </style>
+</head>
+<body data-theme="teen" class="s-app">
+  <main class="mz">
+    <h1>Magazzino giochi</h1>
+    <select id="mz-sub" aria-label="Materia"></select>
+    <div class="mz-pick" id="mz-pick"></div>
+    <div class="s-prompt" id="bubble"></div>
+    <div id="gbox"></div>
+    <p id="mz-out" role="status"></p>
+  </main>
+  <script src="js/voice.js"></script>
+  <script src="js/questions.js"></script>
+  <script src="js/s_data.js"></script>
+  <script src="js/parole.js"></script>
+  <script src="js/emo_words.js"></script>
+  <script src="js/games.js"></script>
+  <script src="js/games2.js"></script>
+  <script src="js/s_games.js"></script>
+  <script src="js/s_magazzino.js"></script>
+  <script>
+    // pagina di prova: sceglie materia e gioco e lo fa partire
+    (() => {
+      const KINDS = [["tris", "Tris"], ["scalata", "Scalata"], ["parola", "Parola segreta"], ["primadopo", "Prima o dopo"], ["scommessa", "Scommessa"], ["elimina", "Elimina"], ["sprint", "Sprint"], ["linea", "Linea del tempo"], ["trovaparole", "Trova le parole"], ["serie", "Serie"], ["colpo", "Colpo d'occhio"], ["chisono", "Chi sono?"]];
+      const SUBS = [["matematica", "Matematica"], ["italiano", "Italiano"], ["inglese", "Inglese"], ["storia", "Storia"], ["civica", "Educazione civica"], ["scienze", "Scienze"]];
+      const $ = id => document.getElementById(id), esc = s => String(s).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+      $("mz-sub").innerHTML = SUBS.map(s => `<option value="${s[0]}">${s[1]}</option>`).join("");
+      $("mz-pick").innerHTML = KINDS.map(k => `<button data-k="${k[0]}">${k[1]}</button>`).join("");
+      function run(kind) {
+        const r = Games.make(kind, 8, $("mz-sub").value);
+        document.querySelectorAll("#mz-pick button").forEach(b => b.classList.toggle("on", b.dataset.k === kind));
+        $("mz-out").textContent = "";
+        const old = $("gbox"), box = document.createElement("div"); box.id = "gbox"; old.replaceWith(box);   // riquadro nuovo a ogni giro: i timer del gioco precedente si fermano
+        if (!r) { $("bubble").innerHTML = "<p>Per questa materia il gioco non ha dati.</p>"; $("gbox").innerHTML = ""; window.__r = null; return; }
+        window.__r = r; window.__done = null;
+        $("bubble").innerHTML = `<p>${esc(r.prompt)}</p><small>${esc(r.hint || "")}</small>`;
+        Games.mount($("gbox"), r, (ok, sol, expl, m) => { window.__done = { ok, sol, expl, m }; $("mz-out").textContent = `${ok ? "Riuscito" : "Non riuscito"}${sol ? " · Soluzione: " + sol : ""}${expl ? " · " + expl : ""}`; });
+      }
+      window.__run = run;
+      $("mz-pick").onclick = e => { const b = e.target.closest("[data-k]"); if (b) run(b.dataset.k); };
+    })();
+  </script>
+</body>
+</html>
