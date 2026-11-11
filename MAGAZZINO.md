@@ -1,15 +1,15 @@
 # Magazzino giochi — Gioca e Impara S
 
-Dodici giochi in più per ragazzi dai 14 anni, pronti ma **non ancora accesi nell'app**.
+Dodici giochi in più per ragazzi dai 14 anni. **Dal 11/11/2026 sono tutti accesi nell'app** (caricati in `www/index.html`).
 Stanno in `www/js/s_magazzino.js` (aspetto in `www/css/s_magazzino.css`). Si provano aprendo `www/magazzino.html`.
 
-## Come accenderli nell'app
-In `www/index.html` aggiungere, dopo `s_games.js` e dopo `s.css`:
+## Come si accendono e si spengono
+In `www/index.html` ci sono, dopo `s_games.js` e dopo `s.css`:
 ```html
 <link rel="stylesheet" href="css/s_magazzino.css">
 <script src="js/s_magazzino.js"></script>
 ```
-Da quel momento il motore li pesca insieme agli altri. Per accenderne solo alcuni, togliere dal file i `Games.register(...)` degli altri.
+Il motore li pesca insieme agli altri. Per spegnerne uno, togliere dal file il suo `Games.register(...)`; per spegnerli tutti, togliere le due righe.
 
 ## Come usarli in un'altra app
 Ogni gioco è un blocco `Games.register(nome, { subjects, make, mount })`:

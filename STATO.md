@@ -9,6 +9,7 @@ Aggiornato: 11/11/2026
 - 1ª superiore, sei materie: Matematica, Italiano, Inglese, Storia, Educazione civica, Scienze.
 - Motore dei giochi copiato da Gioca e Impara (`www/js/games.js`, `games2.js`, `questions.js`, `voice.js`), con i giochi da bambini esclusi.
 - Tre giochi nuovi in `www/js/s_games.js`: «Trova l'errore», «Stima», «Completa».
+- Dodici giochi in più in `www/js/s_magazzino.js`, tutti accesi: Tris, Scalata, Parola segreta, Prima o dopo, Scommessa, Elimina, Sprint, Linea del tempo, Trova le parole, Serie, Colpo d'occhio, Chi sono? (dettagli in `MAGAZZINO.md`; pagina di prova `www/magazzino.html`). In tutto 28 tipi di sfida.
 - Contenuti in `www/js/s_data.js` (classi 8–12 = 1ª–5ª superiore; ogni voce ha `cl: [dalla, alla]`).
 - App in `www/js/s_app.js`, aspetto in `www/css/s.css`. Sfondi fatti con Gemini in `www/img/`.
 
@@ -16,6 +17,7 @@ Aggiornato: 11/11/2026
 - Contenuti di 2ª, 3ª, 4ª e 5ª superiore (i pulsanti dell'anno sono già pronti, segnati «in arrivo»).
 - Sfondo diverso per ogni materia dentro i giochi (immagini di Gemini, una per materia, senza scritte).
 - APK Android.
+- «Chi sono?» ha gli indizi dentro `s_magazzino.js` (`WHO`, sei per materia, solo 1ª superiore): vanno aggiunti per gli altri anni. La voce per ora legge solo il titolo, non gli indizi.
 - «Slot frasi» e «Campo dei numeri» sono spenti: hanno ancora frasi e numeri da scuola media.
 
 ## Come aggiungere un anno (2ª–5ª superiore)
