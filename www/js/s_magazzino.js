@@ -706,7 +706,7 @@
       scienze: [
         ["Cuore", ["Polmone", "Fegato", "Rene"], ["Sono un organo.", "Sono un muscolo.", "Ho quattro camere.", "Pompo il sangue in tutto il corpo."]],
         ["Neurone", ["Globulo rosso", "Cellula muscolare", "Linfocita"], ["Sono una cellula.", "Faccio parte del sistema nervoso.", "Trasmetto impulsi elettrici.", "Comunico con altri neuroni attraverso le sinapsi."]],
-        ["Insulina", ["Adrenalina", "Tiroxina", "Glucagone"], ["Sono un ormone.", "Sono prodotta dal pancreas.", "Aiuto le cellule a usare il glucosio.", "Abbasso la glicemia."]],
+        ["Insulina", ["Adrenalina", "Tiroxina", "Glucagone"], ["Sono un ormone.", "Sono prodotta dal pancreas.", "Aiuto le cellule a usare il glucosio.", "Abbasso la glicemia, cioè lo zucchero nel sangue."]],
         ["Globuli rossi", ["Piastrine", "Globuli bianchi", "Plasma"], ["Siamo cellule del sangue.", "Non abbiamo il nucleo.", "Abbiamo dentro l'emoglobina.", "Trasportiamo l'ossigeno."]],
         ["Anticorpo", ["Antibiotico", "Vaccino", "Virus"], ["Sono una proteina.", "Faccio parte del sistema immunitario.", "Sono prodotto dai linfociti B.", "Riconosco e neutralizzo gli agenti estranei."]]
       ],
@@ -750,7 +750,7 @@
         ["Mendel", ["Darwin", "Pasteur", "Watson"], ["Sono stato un monaco.", "Coltivo piselli nel giardino del convento.", "Studio come si trasmettono i caratteri.", "Sono considerato il padre della genetica."]],
         ["Darwin", ["Mendel", "Lamarck", "Wegener"], ["Sono un naturalista inglese.", "Viaggio sul Beagle.", "Visito le isole Galápagos.", "Propongo la selezione naturale."]],
         ["Wegener", ["Darwin", "Mendel", "Newton"], ["Sono uno scienziato tedesco.", "Sono un meteorologo.", "Nel 1912 propongo una nuova teoria sulla Terra.", "Parlo di deriva dei continenti."]],
-        ["CRISPR", ["PCR", "Vaccino", "Antibiotico"], ["Sono una tecnica di laboratorio.", "Derivo da un sistema di difesa dei batteri.", "Permetto di modificare il DNA con precisione.", "Ho dato un Nobel nel 2020 a Charpentier e Doudna."]],
+        ["CRISPR", ["PCR", "Vaccino", "Antibiotico"], ["Sono una tecnica di laboratorio.", "Derivo da un sistema di difesa dei batteri.", "Permetto di modificare il DNA con precisione.", "Sono usata come «forbici» molecolari per tagliare e correggere il DNA."]],
         ["Effetto serra", ["Buco dell'ozono", "Pioggia acida", "Smog"], ["Sono un fenomeno atmosferico.", "Senza di me la Terra sarebbe troppo fredda.", "Alcuni gas trattengono il calore.", "La CO₂ che emettiamo mi rende più intenso."]]
       ],
       italiano: [
