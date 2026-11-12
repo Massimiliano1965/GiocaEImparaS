@@ -144,3 +144,13 @@ body.s-app .vf-card { background: var(--panel); border: 1.5px solid var(--line);
 body.s-app .vf-a { color: var(--ink); background: #1B2B52; border: 1.5px solid rgba(111,182,255,.55); border-radius: 12px; font-weight: 600; font-size: 22px; }
 body.s-app .vf-btns .btn { border: 0; box-shadow: none; border-radius: 14px; font-weight: 600; color: #06122B; }
 body.s-app .vf-yes { background: #5BE37A; } body.s-app .vf-no { background: #FF8A8F; }
+
+/* Sfondo diverso per ogni materia dentro i giochi: basta mettere img/sfondo_<materia>.png (572x1024).
+   Se il file manca, resta lo sfondo comune (i livelli dopo il primo fanno da riserva). */
+body[data-sub="matematica"], body[data-sub="italiano"], body[data-sub="inglese"], body[data-sub="storia"], body[data-sub="civica"], body[data-sub="scienze"] { background-attachment: fixed; }
+body[data-sub="matematica"] { background-image: linear-gradient(rgba(5,11,26,.72), rgba(5,11,26,.72)), url("../img/sfondo_matematica.png"), linear-gradient(rgba(5,11,26,.78), rgba(5,11,26,.78)), url("../img/sfondo.png"); background-size: cover, cover, cover, cover; background-position: center; background-repeat: no-repeat; }
+body[data-sub="italiano"] { background-image: linear-gradient(rgba(5,11,26,.72), rgba(5,11,26,.72)), url("../img/sfondo_italiano.png"), linear-gradient(rgba(5,11,26,.78), rgba(5,11,26,.78)), url("../img/sfondo.png"); background-size: cover, cover, cover, cover; background-position: center; background-repeat: no-repeat; }
+body[data-sub="inglese"] { background-image: linear-gradient(rgba(5,11,26,.72), rgba(5,11,26,.72)), url("../img/sfondo_inglese.png"), linear-gradient(rgba(5,11,26,.78), rgba(5,11,26,.78)), url("../img/sfondo.png"); background-size: cover, cover, cover, cover; background-position: center; background-repeat: no-repeat; }
+body[data-sub="storia"] { background-image: linear-gradient(rgba(5,11,26,.72), rgba(5,11,26,.72)), url("../img/sfondo_storia.png"), linear-gradient(rgba(5,11,26,.78), rgba(5,11,26,.78)), url("../img/sfondo.png"); background-size: cover, cover, cover, cover; background-position: center; background-repeat: no-repeat; }
+body[data-sub="civica"] { background-image: linear-gradient(rgba(5,11,26,.72), rgba(5,11,26,.72)), url("../img/sfondo_civica.png"), linear-gradient(rgba(5,11,26,.78), rgba(5,11,26,.78)), url("../img/sfondo.png"); background-size: cover, cover, cover, cover; background-position: center; background-repeat: no-repeat; }
+body[data-sub="scienze"] { background-image: linear-gradient(rgba(5,11,26,.72), rgba(5,11,26,.72)), url("../img/sfondo_scienze.png"), linear-gradient(rgba(5,11,26,.78), rgba(5,11,26,.78)), url("../img/sfondo.png"); background-size: cover, cover, cover, cover; background-position: center; background-repeat: no-repeat; }
