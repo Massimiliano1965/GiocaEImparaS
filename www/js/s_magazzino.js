@@ -601,6 +601,181 @@
       ["winter", ["spring", "summer", "autumn"], ["It is a season.", "Days are short.", "It can snow.", "It comes after autumn."]]
     ]
   };
+  // Indizi di «Chi sono?» per la 2ª–5ª superiore: WHOY[classe][materia] = [risposta, [tre sbagliate], [quattro indizi dal più vago al più chiaro]]
+  const WHOY = {
+    9: {
+      matematica: [
+        ["Ipotenusa", ["Cateto", "Altezza", "Diagonale"], ["Sono un lato.", "Esisto solo in un triangolo rettangolo.", "Sono il lato più lungo.", "Sto di fronte all'angolo retto."]],
+        ["√2", ["1,5", "π", "√4"], ["Sono un numero.", "Non posso scrivermi come frazione.", "Il mio quadrato è 2.", "Valgo circa 1,41."]],
+        ["(a + b)²", ["a² + b²", "a² − b²", "(a − b)²"], ["Sono un prodotto notevole.", "Mi sviluppo in tre termini.", "Contengo il doppio prodotto.", "Valgo a² + 2ab + b²."]],
+        ["a² − b²", ["(a − b)²", "a² + b²", "(a + b)²"], ["Sono un'espressione con due termini.", "Tra i due termini c'è un meno.", "Entrambi i termini sono quadrati.", "Mi scompongo in (a + b)(a − b)."]]
+      ],
+      storia: [
+        ["Augusto", ["Giulio Cesare", "Nerone", "Traiano"], ["Sono pronipote e figlio adottivo di Giulio Cesare.", "Vinco Antonio e Cleopatra ad Azio.", "Il Senato mi dà un titolo che significa «venerabile».", "Sono il primo imperatore romano."]],
+        ["Costantino", ["Diocleziano", "Teodosio", "Giustiniano"], ["Sono un imperatore romano del IV secolo.", "Vinco Massenzio a Ponte Milvio.", "Nel 313 concedo libertà di culto ai cristiani.", "Fondo Costantinopoli."]],
+        ["Carlo Magno", ["Clodoveo", "Ottone I", "Pipino il Breve"], ["Sono un re dei Franchi.", "Sono figlio di Pipino il Breve.", "Sconfiggo i Longobardi.", "Sono incoronato imperatore nell'anno 800."]],
+        ["Giustiniano", ["Costantino", "Teodorico", "Eraclio"], ["Sono un imperatore bizantino.", "Regno nel VI secolo.", "Faccio raccogliere il diritto romano in un Corpus.", "Mia moglie è Teodora."]],
+        ["Maometto", ["Abramo", "Mosè", "Saladino"], ["Sono nato alla Mecca.", "Nel 622 compio l'egira.", "Il mio messaggio è raccolto nel Corano.", "Sono il profeta dell'islam."]]
+      ],
+      scienze: [
+        ["Mitocondrio", ["Cloroplasto", "Ribosoma", "Nucleo"], ["Sono un organello della cellula.", "Mi trovo nelle cellule animali e vegetali.", "Sono la centrale energetica della cellula.", "Produco ATP con la respirazione cellulare."]],
+        ["Cloroplasto", ["Mitocondrio", "Vacuolo", "Nucleo"], ["Sono un organello.", "Mi trovo nelle cellule vegetali.", "Contengo la clorofilla.", "Qui avviene la fotosintesi."]],
+        ["DNA", ["RNA", "Proteina", "Lipide"], ["Sono una molecola.", "Ho la forma di una doppia elica.", "Sono fatto di quattro basi.", "Contengo l'informazione genetica."]],
+        ["Acqua", ["Ammoniaca", "Metano", "Sale"], ["Sono un composto.", "Nella mia molecola ci sono tre atomi.", "La mia formula è H₂O.", "Copro la maggior parte della superficie terrestre."]],
+        ["Elettrone", ["Protone", "Neutrone", "Nucleo"], ["Sono una particella.", "Sono molto più leggero del protone.", "Ho carica negativa.", "Giro attorno al nucleo."]]
+      ],
+      italiano: [
+        ["Renzo Tramaglino", ["Don Rodrigo", "Fra Cristoforo", "Don Abbondio"], ["Sono un personaggio di un romanzo storico.", "Faccio il filatore di seta.", "Sono innamorato di Lucia.", "Non riesco a sposarla per colpa di don Rodrigo."]],
+        ["Don Abbondio", ["Fra Cristoforo", "Il cardinal Federigo", "L'Innominato"], ["Sono un curato di campagna.", "Ho paura dei bravi.", "Rifiuto di celebrare un matrimonio.", "Sono un personaggio dei Promessi sposi."]],
+        ["L'Innominato", ["Don Rodrigo", "Fra Cristoforo", "Il Griso"], ["Sono un potente signore.", "Vivo in un castello.", "Faccio rapire Lucia.", "Mi converto dopo la notte che passo con lei."]],
+        ["Fra Cristoforo", ["Don Abbondio", "Il Griso", "Padre Provinciale"], ["Sono un frate cappuccino.", "Da giovane ho ucciso un uomo.", "Aiuto Renzo e Lucia.", "Muoio di peste al lazzaretto."]],
+        ["Sonetto", ["Ottava", "Terzina", "Quartina"], ["Sono una forma poetica.", "Ho versi endecasillabi.", "Sono composto da quattordici versi.", "Ho due quartine e due terzine."]]
+      ],
+      civica: [
+        ["ONU", ["NATO", "UE", "OMS"], ["Sono un'organizzazione internazionale.", "Nasco nel 1945.", "Ho sede a New York.", "Ho un Consiglio di sicurezza."]],
+        ["NATO", ["ONU", "UE", "OMC"], ["Sono un'alleanza.", "Nasco nel 1949.", "Sono un'alleanza militare difensiva.", "Il mio trattato è firmato a Washington."]],
+        ["Schengen", ["Euro", "Maastricht", "Erasmus"], ["Sono uno spazio europeo.", "Prendo il nome da una località del Lussemburgo.", "Elimino i controlli sulle persone ai confini interni.", "Permetto di circolare tra molti Paesi senza passaporto."]],
+        ["BCE", ["FMI", "OMC", "BEI"], ["Sono un'istituzione dell'Unione europea.", "Ho sede a Francoforte.", "Governo la politica monetaria dell'area euro.", "Il mio compito principale è mantenere stabili i prezzi."]],
+        ["Costituzione", ["Codice civile", "Statuto Albertino", "Dichiarazione universale"], ["Sono un testo.", "Sono la legge fondamentale della Repubblica.", "Ho 139 articoli.", "Sono entrata in vigore nel 1948."]]
+      ],
+      inglese: [
+        ["airport", ["station", "harbour", "hotel"], ["It is a place.", "You go there to travel.", "You check in your luggage there.", "Planes take off and land there."]],
+        ["passport", ["ticket", "visa", "licence"], ["It is a document.", "You show it at the border.", "It has your photo.", "You need it to travel to another country."]],
+        ["dentist", ["doctor", "nurse", "pharmacist"], ["It is a job.", "This person works with teeth.", "You go to this person for a check-up.", "This person can fill a cavity."]],
+        ["tomorrow", ["yesterday", "today", "tonight"], ["It is a word about time.", "It is not in the past.", "It is not today.", "It is the day after today."]],
+        ["elbow", ["knee", "wrist", "shoulder"], ["It is a part of the body.", "It is part of the arm.", "It is a joint.", "It is in the middle of your arm."]]
+      ]
+    },
+    10: {
+      matematica: [
+        ["Parabola", ["Iperbole", "Circonferenza", "Retta"], ["Sono una curva.", "Sono il grafico di y = ax² + bx + c.", "Ho un vertice e un asse di simmetria.", "Se a > 0 sono rivolta verso l'alto."]],
+        ["Discriminante", ["Vertice", "Ascissa", "Coefficiente"], ["Sono una quantità legata a un'equazione di secondo grado.", "Mi indico con la lettera greca delta.", "Se sono negativo non ci sono soluzioni reali.", "Valgo b² − 4ac."]],
+        ["Circonferenza", ["Parabola", "Ellisse", "Retta"], ["Sono un luogo di punti.", "Ho un centro e un raggio.", "Tutti i miei punti sono alla stessa distanza dal centro.", "La mia equazione è (x − a)² + (y − b)² = r²."]],
+        ["Coefficiente angolare", ["Intercetta", "Ordinata", "Ascissa"], ["Sono un numero legato a una retta.", "Misuro la sua pendenza.", "Nella forma y = mx + q sono la lettera m.", "Due rette parallele hanno lo stesso me."]]
+      ],
+      storia: [
+        ["Federico Barbarossa", ["Federico II", "Enrico IV", "Ottone I"], ["Sono un imperatore del XII secolo.", "Appartengo alla casa di Svevia.", "Scendo più volte in Italia.", "Vengo sconfitto dai comuni a Legnano nel 1176."]],
+        ["Giovanna d'Arco", ["Eleonora d'Aquitania", "Caterina de' Medici", "Maria Stuarda"], ["Sono una contadina francese.", "Dico di sentire delle voci.", "Guido l'esercito francese a Orléans.", "Vengo bruciata sul rogo a Rouen nel 1431."]],
+        ["Cristoforo Colombo", ["Vasco da Gama", "Amerigo Vespucci", "Magellano"], ["Sono un navigatore genovese.", "Cerco una nuova rotta per le Indie.", "Parto da Palos nel 1492.", "Arrivo in un continente che gli Europei non conoscevano."]],
+        ["Martin Lutero", ["Calvino", "Erasmo", "Zwingli"], ["Sono un monaco tedesco.", "Contesto la vendita delle indulgenze.", "Scrivo 95 tesi.", "Do inizio alla Riforma protestante."]],
+        ["Lorenzo de' Medici", ["Cosimo il Vecchio", "Ludovico il Moro", "Savonarola"], ["Governo Firenze nel Quattrocento.", "Sono un mecenate di artisti.", "Mi chiamano il Magnifico.", "Sono il nipote di Cosimo il Vecchio."]]
+      ],
+      scienze: [
+        ["Etna", ["Vesuvio", "Stromboli", "Vulcano"], ["Sono un vulcano italiano.", "Sono in Sicilia.", "Sono il più alto vulcano attivo d'Europa.", "Mi trovo vicino a Catania."]],
+        ["Placca tettonica", ["Faglia", "Magma", "Dorsale"], ["Sono un frammento della litosfera.", "Mi muovo molto lentamente.", "Ai miei margini avvengono terremoti e vulcani.", "Sulla Terra ce ne sono alcune grandi e molte piccole."]],
+        ["Magnitudo", ["Intensità", "Epicentro", "Ipocentro"], ["Sono un numero.", "Misuro un terremoto.", "Misuro l'energia liberata alla sorgente.", "Si usa la scala Richter o la scala del momento."]],
+        ["Mole", ["Grammo", "Litro", "Atomo"], ["Sono un'unità di misura del Sistema internazionale.", "Misuro la quantità di sostanza.", "Contengo 6,022·10²³ particelle.", "Il mio numero porta il nome di Avogadro."]],
+        ["Acido", ["Base", "Sale", "Ossido"], ["Sono una sostanza chimica.", "Ho un pH minore di 7.", "Cedo ioni H⁺.", "Ne è un esempio il succo di limone."]]
+      ],
+      italiano: [
+        ["Dante", ["Petrarca", "Boccaccio", "Virgilio"], ["Sono nato a Firenze nel 1265.", "Sono stato esiliato dalla mia città.", "Il mio primo amore è Beatrice.", "Scrivo la Divina Commedia."]],
+        ["Petrarca", ["Dante", "Boccaccio", "Ariosto"], ["Sono un poeta del Trecento.", "Sono nato ad Arezzo.", "Amo una donna di nome Laura.", "Scrivo il Canzoniere."]],
+        ["Boccaccio", ["Petrarca", "Dante", "Machiavelli"], ["Sono un autore del Trecento.", "Vivo a lungo a Napoli e a Firenze.", "Racconto cento novelle.", "Scrivo il Decameron."]],
+        ["Machiavelli", ["Guicciardini", "Ariosto", "Castiglione"], ["Sono un fiorentino.", "Lavoro come segretario della Repubblica.", "Dopo l'esilio scrivo un trattato politico.", "Sono l'autore del Principe."]],
+        ["Ariosto", ["Tasso", "Boiardo", "Pulci"], ["Sono un poeta del Cinquecento.", "Vivo alla corte degli Este a Ferrara.", "Scrivo un poema in ottave.", "Il mio poema è l'Orlando furioso."]]
+      ],
+      civica: [
+        ["Regione", ["Provincia", "Comune", "Città metropolitana"], ["Sono un ente territoriale.", "In Italia ce ne sono venti.", "Alcune di noi hanno uno statuto speciale.", "Ho un Consiglio e un presidente."]],
+        ["Referendum", ["Plebiscito", "Elezione", "Petizione"], ["Sono uno strumento di democrazia diretta.", "I cittadini votano su una questione.", "Posso abrogare una legge.", "Ho bisogno del quorum per essere valido."]],
+        ["Decreto-legge", ["Legge delega", "Disegno di legge", "Regolamento"], ["Sono un atto con forza di legge.", "Mi emana il Governo.", "Servo nei casi straordinari di necessità e urgenza.", "Devo essere convertito dal Parlamento entro sessanta giorni."]],
+        ["Suffragio universale", ["Voto segreto", "Voto di scambio", "Astensione"], ["Sono un principio elettorale.", "Valgo per tutti i cittadini maggiorenni.", "Non dipendo dal censo o dal sesso.", "Riconosco il diritto di voto a tutti."]],
+        ["Sciopero", ["Serrata", "Tirocinio", "Petizione"], ["Sono un diritto.", "Riguardo i lavoratori.", "Sono previsto dall'articolo 40 della Costituzione.", "Consisto nell'astensione collettiva dal lavoro."]]
+      ],
+      inglese: [
+        ["lawyer", ["judge", "police officer", "teacher"], ["It is a job.", "This person works with the law.", "This person gives legal advice.", "This person can defend you in court."]],
+        ["scholarship", ["salary", "pension", "loan"], ["It is money.", "You can get it as a student.", "You do not have to pay it back.", "It helps you pay for your studies."]],
+        ["deadline", ["holiday", "appointment", "schedule"], ["It is a point in time.", "You have it at work or at school.", "It is the last moment to finish something.", "If you miss it, you are late."]],
+        ["fridge", ["oven", "freezer", "cupboard"], ["It is an object.", "You find it in the kitchen.", "It uses electricity.", "It keeps food cold."]],
+        ["mayor", ["president", "governor", "minister"], ["It is a job in politics.", "This person is elected.", "This person leads a town or a city.", "This person works in the town hall."]]
+      ]
+    },
+    11: {
+      matematica: [
+        ["Logaritmo", ["Radice", "Potenza", "Fattoriale"], ["Sono un'operazione.", "Sono l'inverso di un'operazione con le potenze.", "Rispondo alla domanda: a quale esponente elevo la base?", "log₂ 8 = 3 è un mio esempio."]],
+        ["Radiante", ["Grado", "Pascal", "Metro"], ["Sono un'unità di misura.", "Misuro gli angoli.", "Un angolo giro vale 2π di me.", "Un angolo piatto vale π di me."]],
+        ["Fattoriale", ["Potenza", "Radice", "Progressione"], ["Sono un'operazione tra numeri interi.", "Mi indico con un punto esclamativo.", "Mi usi nel calcolo combinatorio.", "5! vale 120."]],
+        ["Progressione geometrica", ["Progressione aritmetica", "Fattoriale", "Disposizione"], ["Sono una successione di numeri.", "Ogni termine si ottiene dal precedente con un'operazione.", "Moltiplico sempre per la stessa ragione.", "2, 6, 18, 54 è un mio esempio."]]
+      ],
+      storia: [
+        ["Luigi XIV", ["Luigi XVI", "Enrico IV", "Napoleone"], ["Sono un re di Francia.", "Regno per oltre settant'anni.", "Mi chiamano il Re Sole.", "Costruisco la reggia di Versailles."]],
+        ["Oliver Cromwell", ["Carlo I", "Guglielmo d'Orange", "Carlo II"], ["Sono un uomo politico inglese del Seicento.", "Guido l'esercito del Parlamento.", "Faccio giustiziare il re.", "Governo l'Inghilterra come Lord protettore."]],
+        ["Robespierre", ["Danton", "Marat", "Napoleone"], ["Sono un avvocato francese.", "Sono un capo dei giacobini.", "Guido la Francia durante il Terrore.", "Finisco ghigliottinato nel 1794."]],
+        ["Napoleone", ["Luigi XVI", "Wellington", "Metternich"], ["Nasco in Corsica.", "Prendo il potere nel 1799.", "Mi incorono imperatore nel 1804.", "Vengo sconfitto a Waterloo ed esiliato a Sant'Elena."]],
+        ["Metternich", ["Talleyrand", "Bismarck", "Cavour"], ["Sono un ministro austriaco.", "Guido il Congresso di Vienna.", "Difendo l'ordine conservatore in Europa.", "Il mio nome è legato alla Restaurazione."]]
+      ],
+      scienze: [
+        ["Cuore", ["Polmone", "Fegato", "Rene"], ["Sono un organo.", "Sono un muscolo.", "Ho quattro camere.", "Pompo il sangue in tutto il corpo."]],
+        ["Neurone", ["Globulo rosso", "Cellula muscolare", "Linfocita"], ["Sono una cellula.", "Faccio parte del sistema nervoso.", "Trasmetto impulsi elettrici.", "Comunico con altri neuroni attraverso le sinapsi."]],
+        ["Insulina", ["Adrenalina", "Tiroxina", "Glucagone"], ["Sono un ormone.", "Sono prodotta dal pancreas.", "Aiuto le cellule a usare il glucosio.", "Abbasso la glicemia."]],
+        ["Globuli rossi", ["Piastrine", "Globuli bianchi", "Plasma"], ["Siamo cellule del sangue.", "Non abbiamo il nucleo.", "Abbiamo dentro l'emoglobina.", "Trasportiamo l'ossigeno."]],
+        ["Anticorpo", ["Antibiotico", "Vaccino", "Virus"], ["Sono una proteina.", "Faccio parte del sistema immunitario.", "Sono prodotto dai linfociti B.", "Riconosco e neutralizzo gli agenti estranei."]]
+      ],
+      italiano: [
+        ["Foscolo", ["Parini", "Alfieri", "Leopardi"], ["Nasco a Zante, un'isola greca.", "Sono un poeta del primo Ottocento.", "Scrivo un romanzo epistolare, l'Ortis.", "Scrivo Dei sepolcri."]],
+        ["Leopardi", ["Foscolo", "Manzoni", "Pascoli"], ["Nasco a Recanati.", "Passo molte ore nella biblioteca di mio padre.", "Scrivo i Canti.", "Sono il poeta del pessimismo cosmico."]],
+        ["Goldoni", ["Alfieri", "Parini", "Metastasio"], ["Sono un autore veneziano.", "Scrivo per il teatro.", "Riformo la commedia dell'arte.", "Sono l'autore de La locandiera."]],
+        ["Beccaria", ["Verri", "Voltaire", "Montesquieu"], ["Sono un illuminista milanese.", "Sono contro la tortura.", "Sono contro la pena di morte.", "Sono l'autore di Dei delitti e delle pene."]],
+        ["Alfieri", ["Goldoni", "Parini", "Foscolo"], ["Sono un autore piemontese.", "Scrivo tragedie.", "Amo la libertà e odio la tirannide.", "Sono l'autore del Saul."]]
+      ],
+      civica: [
+        ["PIL", ["Inflazione", "Debito pubblico", "Deficit"], ["Sono un indicatore economico.", "Misuro la produzione di un Paese.", "Considero beni e servizi finali.", "Sono il prodotto interno lordo."]],
+        ["Inflazione", ["PIL", "Deflazione", "Recessione"], ["Sono un fenomeno economico.", "Riguardo i prezzi.", "Sono un aumento generale e continuo.", "Riduco il potere d'acquisto della moneta."]],
+        ["IVA", ["IRPEF", "IMU", "Accise"], ["Sono un'imposta.", "Sono un'imposta indiretta.", "Colpisco i consumi.", "La mia aliquota ordinaria in Italia è il 22%."]],
+        ["OMS", ["FAO", "UNESCO", "UNICEF"], ["Sono un'agenzia dell'ONU.", "Ho sede a Ginevra.", "Mi occupo di salute.", "Sono l'Organizzazione mondiale della sanità."]],
+        ["Sindacato", ["Partito", "Cooperativa", "Camera di commercio"], ["Sono un'associazione.", "Sono riconosciuto dalla Costituzione.", "Tutelo gli interessi dei lavoratori.", "Posso negoziare i contratti collettivi."]]
+      ],
+      inglese: [
+        ["inflation", ["deflation", "recession", "unemployment"], ["It is an economic word.", "It is about prices.", "It means prices go up.", "Your money buys less."]],
+        ["unemployment", ["retirement", "inflation", "salary"], ["It is a situation.", "It is about work.", "It is when you want a job but cannot find one.", "A person in this situation is called jobless."]],
+        ["tax", ["fine", "salary", "bill"], ["It is money.", "You pay it to the government.", "Companies and workers pay it.", "It pays for public services."]],
+        ["election", ["revolution", "debate", "census"], ["It is an event.", "It happens in a democracy.", "People vote.", "A new government can come out of it."]],
+        ["breakthrough", ["setback", "routine", "failure"], ["It is a noun.", "It is a positive thing.", "It is an important discovery or achievement.", "Scientists hope to make one."]]
+      ]
+    },
+    12: {
+      matematica: [
+        ["Derivata", ["Integrale", "Limite", "Funzione"], ["Sono un concetto dell'analisi.", "Misuro come cambia una funzione.", "Geometricamente sono il coefficiente angolare della tangente.", "D(x²) = 2x è un mio esempio."]],
+        ["Integrale", ["Derivata", "Limite", "Logaritmo"], ["Sono un'operazione dell'analisi.", "Sono l'operazione inversa della derivazione.", "Posso calcolare un'area sotto una curva.", "Mi scrivo con un segno a forma di S allungata."]],
+        ["Limite", ["Derivata", "Integrale", "Asintoto"], ["Sono un concetto dell'analisi.", "Descrivo a che valore si avvicina una funzione.", "Posso valere un numero, +∞ oppure −∞.", "Un mio esempio famoso è sen x / x per x che tende a 0: vale 1."]],
+        ["Asintoto", ["Tangente", "Massimo", "Dominio"], ["Sono una retta.", "Sono legato al grafico di una funzione.", "Il grafico mi si avvicina sempre di più.", "Ci sono asintoti verticali, orizzontali e obliqui."]]
+      ],
+      storia: [
+        ["Garibaldi", ["Cavour", "Mazzini", "Vittorio Emanuele II"], ["Sono nato a Nizza.", "Combatto anche in Sud America.", "Guido i volontari in camicia rossa.", "Nel 1860 parto con i Mille."]],
+        ["Cavour", ["Garibaldi", "Mazzini", "Crispi"], ["Sono un politico piemontese.", "Sono primo ministro del Regno di Sardegna.", "Stringo un'alleanza con la Francia di Napoleone III.", "Sono l'artefice diplomatico dell'unità d'Italia."]],
+        ["Mussolini", ["Hitler", "Giolitti", "Franco"], ["Sono stato un giornalista socialista.", "Fondo i Fasci di combattimento nel 1919.", "Marcio su Roma nel 1922.", "Sono il capo del fascismo."]],
+        ["Hitler", ["Mussolini", "Stalin", "Franco"], ["Sono nato in Austria.", "Divento cancelliere nel 1933.", "Guido il Terzo Reich.", "Invado la Polonia nel 1939."]],
+        ["Gorbačëv", ["Stalin", "Eltsin", "Breznev"], ["Sono un leader sovietico.", "Lancio le riforme chiamate glasnost e perestrojka.", "Sono l'ultimo segretario del PCUS.", "Con me si dissolve l'URSS nel 1991."]]
+      ],
+      scienze: [
+        ["Mendel", ["Darwin", "Pasteur", "Watson"], ["Sono stato un monaco.", "Coltivo piselli nel giardino del convento.", "Studio come si trasmettono i caratteri.", "Sono considerato il padre della genetica."]],
+        ["Darwin", ["Mendel", "Lamarck", "Wegener"], ["Sono un naturalista inglese.", "Viaggio sul Beagle.", "Visito le isole Galápagos.", "Propongo la selezione naturale."]],
+        ["Wegener", ["Darwin", "Mendel", "Newton"], ["Sono uno scienziato tedesco.", "Sono un meteorologo.", "Nel 1912 propongo una nuova teoria sulla Terra.", "Parlo di deriva dei continenti."]],
+        ["CRISPR", ["PCR", "Vaccino", "Antibiotico"], ["Sono una tecnica di laboratorio.", "Derivo da un sistema di difesa dei batteri.", "Permetto di modificare il DNA con precisione.", "Ho dato un Nobel nel 2020 a Charpentier e Doudna."]],
+        ["Effetto serra", ["Buco dell'ozono", "Pioggia acida", "Smog"], ["Sono un fenomeno atmosferico.", "Senza di me la Terra sarebbe troppo fredda.", "Alcuni gas trattengono il calore.", "La CO₂ che emettiamo mi rende più intenso."]]
+      ],
+      italiano: [
+        ["Verga", ["Pirandello", "Svevo", "Pascoli"], ["Sono un siciliano di Catania.", "Sono un esponente del Verismo.", "Scrivo il Ciclo dei vinti.", "Scrivo I Malavoglia."]],
+        ["Pirandello", ["Svevo", "Verga", "D'Annunzio"], ["Nasco in Sicilia.", "Scrivo molto per il teatro.", "Vinco il Nobel nel 1934.", "Scrivo Il fu Mattia Pascal."]],
+        ["Svevo", ["Pirandello", "Saba", "Montale"], ["Vivo a Trieste.", "Faccio il commerciante e poi l'industriale.", "Il mio vero nome è Ettore Schmitz.", "Scrivo La coscienza di Zeno."]],
+        ["Ungaretti", ["Montale", "Quasimodo", "Saba"], ["Sono nato ad Alessandria d'Egitto.", "Faccio il soldato nella Prima guerra mondiale.", "Scrivo versi brevissimi.", "Sono l'autore dell'Allegria."]],
+        ["Montale", ["Ungaretti", "Quasimodo", "Saba"], ["Sono un poeta ligure.", "Vinco il Nobel nel 1975.", "Uso il correlativo oggettivo.", "Scrivo Ossi di seppia."]]
+      ],
+      civica: [
+        ["Parlamento europeo", ["Commissione europea", "Consiglio dell'UE", "Corte di giustizia"], ["Sono un'istituzione dell'UE.", "Sono eletto ogni cinque anni.", "Rappresento i cittadini europei.", "Ho sedi a Strasburgo e a Bruxelles."]],
+        ["Presidente del Consiglio", ["Presidente della Repubblica", "Presidente della Camera", "Ministro dell'Interno"], ["Sono una carica dello Stato.", "Sono nominato dal Presidente della Repubblica.", "Dirigo la politica generale del Governo.", "Guido il Consiglio dei ministri."]],
+        ["GDPR", ["SPID", "NATO", "IVA"], ["Sono un regolamento europeo.", "Sono in vigore dal 2018.", "Riguardo i dati personali.", "Tutelo la privacy dei cittadini."]],
+        ["SPID", ["GDPR", "PEC", "IBAN"], ["Sono un sistema italiano.", "Ti identifico online.", "Dai accesso ai servizi della pubblica amministrazione.", "Sono il Sistema pubblico di identità digitale."]],
+        ["Giovanni Falcone", ["Paolo Borsellino", "Carlo Alberto dalla Chiesa", "Aldo Moro"], ["Sono stato un magistrato.", "Lavoro a Palermo.", "Sono un protagonista del maxiprocesso alla mafia.", "Muoio nella strage di Capaci nel 1992."]]
+      ],
+      inglese: [
+        ["democracy", ["monarchy", "dictatorship", "oligarchy"], ["It is a system of government.", "It comes from a Greek word.", "The people hold the power.", "Citizens choose their leaders by voting."]],
+        ["climate", ["weather", "season", "temperature"], ["It is a noun.", "It is about the atmosphere.", "It describes conditions over many years.", "Global warming is changing it."]],
+        ["refugee", ["tourist", "immigrant", "traveller"], ["It is a person.", "This person has left home.", "This person is escaping war or persecution.", "This person asks for protection in another country."]],
+        ["privacy", ["security", "freedom", "identity"], ["It is a right.", "It is about information.", "It is the right to keep personal things secret.", "Data laws protect it online."]],
+        ["sustainable", ["profitable", "reliable", "portable"], ["It is an adjective.", "It is used when talking about the environment.", "It does not use up natural resources.", "It can continue in the long term."]]
+      ]
+    }
+  };
   function whoMath() {
     for (let g = 0; g < 60; g++) {
       const n = rnd(20, 90), ds = Math.floor(n / 10) + (n % 10), lo = n - rnd(2, 5), hi = lo + 8;
@@ -614,7 +789,7 @@
   Games.register("chisono", {
     subjects: ALL,
     make: (c, s) => {
-      const d = s === "matematica" ? whoMath() : c === 8 ? pick(WHO[s] || []) : null;   // gli indizi scritti sono della 1ª superiore: negli altri anni il gioco parte solo per matematica
+      const d = c === 8 ? (s === "matematica" ? whoMath() : pick(WHO[s] || [])) : pick((WHOY[c] || {})[s] || []) || (s === "matematica" ? whoMath() : null);   // 1ª: WHO; 2ª–5ª: WHOY
       if (!d) return null;
       const opts = shuffle([d[0], ...d[1]]);
       return { kind: "chisono", title: "Chi sono?", prompt: s === "matematica" ? "Che numero sono?" : s === "inglese" ? "Che parola è?" : "Chi sono?", hint: "Gli indizi escono uno alla volta. Rispondi appena lo sai: meno indizi usi, più vale. Un errore si perdona.",
