@@ -1413,8 +1413,8 @@ const SUP = (() => {
     q4("Chi è la protagonista de «La locandiera»?", ["Mirandolina", "Colombina", "Rosaura", "Lisetta"], "Mirandolina è la locandiera che conquista i clienti."),
     q4("Che cosa critica Parini nel «Giorno»?", ["La vita oziosa della nobiltà", "I contadini", "I Francesi", "La Chiesa"], "Lo fa con ironia, fingendo di dare lezioni a un giovane signore."),
     q4("Chi scrisse la tragedia «Saul»?", ["Vittorio Alfieri", "Ugo Foscolo", "Carlo Goldoni", "Pietro Metastasio"], "Alfieri esalta la libertà contro la tirannide."),
-    q4("Che cos'è «Le ultime lettere di Jacopo Ortis»?", ["Un romanzo epistolare di Foscolo", "Un poema di Leopardi", "Una tragedia di Alfieri", "Un saggio di Manzoni"], "È il romanzo italiano più vicino al Romanticismo."),
-    q4("Di che cosa parla «Dei sepolcri»?", ["Del valore della memoria dei defunti", "Dell'amore di un giovane", "Della peste", "Di una guerra"], "Foscolo ne scrisse nel 1807 (è un carme)."),
+    q4("Che cos'è «Le ultime lettere di Jacopo Ortis»?", ["Un romanzo epistolare di Foscolo", "Un poema di Leopardi", "Una tragedia di Alfieri", "Un saggio di Manzoni"], "Foscolo lo scrisse sul modello del «Werther» di Goethe."),
+    q4("Di che cosa parla «Dei sepolcri»?", ["Del valore della memoria dei defunti", "Dell'amore di un giovane", "Della peste", "Di una guerra"], "È un carme del 1807."),
     q4("Che cos'è il Romanticismo?", ["Il movimento che esalta sentimento, individuo e nazione", "Il movimento che esalta soltanto la ragione", "Un movimento del Cinquecento", "Un movimento che cerca la perfezione formale"], "Nasce all'inizio dell'Ottocento."),
     q4("Chi scrisse i «Canti»?", ["Giacomo Leopardi", "Giovanni Pascoli", "Ugo Foscolo", "Alessandro Manzoni"], "Contengono «L'infinito» e «A Silvia»."),
     q4("In quale città nacque Leopardi?", ["Recanati", "Firenze", "Milano", "Napoli"], "Visse a lungo nella biblioteca del padre."),
@@ -1828,7 +1828,7 @@ const SUP = (() => {
     q5("Che cos'è la Guerra fredda?", ["Il confronto, senza scontro diretto, tra USA e URSS", "Una guerra in Antartide", "Una guerra tra Francia e Germania", "Un conflitto del 1914"], "Durò dal 1947 al 1991 circa."),
     q5("Che cosa fu il Muro di Berlino?", ["Il muro che divise la città dal 1961 al 1989", "Una fortificazione romana", "Un confine francese", "Un monumento"], "Il suo crollo simboleggia la fine della Guerra fredda."),
     q5("Che cos'è il Piano Marshall?", ["Il programma americano di aiuti per ricostruire l'Europa", "Un'alleanza militare", "Un trattato di pace", "Una legge italiana"], "Fu avviato nel 1948."),
-    q5("Quale referendum del 2 giugno 1946 sancì la nascita della Repubblica?", ["Quello istituzionale tra monarchia e repubblica", "Quello sul divorzio", "Quello sulla Costituzione europea", "Quello sul nucleare"], "Votarono per la prima volta anche le donne."),
+    q5("Quale referendum del 2 giugno 1946 sancì la nascita della Repubblica?", ["Quello istituzionale tra monarchia e repubblica", "Quello sul divorzio", "Quello sulla Costituzione europea", "Quello sul nucleare"], "Le donne votarono per la prima volta in una consultazione nazionale."),
     q5("Che cos'è il miracolo economico italiano?", ["La forte crescita economica degli anni Cinquanta e Sessanta", "Una crisi", "Una guerra", "Un trattato"], "Cambiò la società italiana."),
     q5("Quali furono gli «anni di piombo»?", ["Gli anni Settanta segnati da terrorismo e violenza politica", "Gli anni del boom", "Gli anni della Resistenza", "Gli anni Venti"], "Tra gli episodi, il sequestro Moro (1978)."),
     q5("In che anno cadde l'Unione Sovietica?", ["1991", "1989", "1985", "1979"], "Gorbačëv ne fu l'ultimo leader."),
@@ -1858,7 +1858,7 @@ const SUP = (() => {
     q5("Che cosa studia la tettonica a placche?", ["I movimenti delle placche della litosfera", "L'atmosfera", "Il clima", "Le maree"], "Spiega terremoti e vulcani."),
     q5("Quali sono fonti di energia rinnovabile?", ["Sole, vento, acqua", "Carbone, petrolio, gas", "Uranio e plutonio", "Solo il gas naturale"], "Si rigenerano in tempi brevi."),
     q5("Che cos'è la fissione nucleare?", ["La scissione di un nucleo pesante in nuclei più leggeri con rilascio di energia", "L'unione di nuclei leggeri", "Una reazione chimica", "Un decadimento"], "Si usa nelle centrali nucleari."),
-    q5("Quanto dura circa un anno luce?", ["È la distanza percorsa dalla luce in un anno", "Un anno intero", "Un giorno", "Un secolo"], "È una unità di lunghezza, circa 9.460 miliardi di km.")
+    q5("Che cos'è un anno luce?", ["La distanza percorsa dalla luce in un anno", "Un anno intero", "Un giorno", "Un secolo"], "È un'unità di lunghezza, circa 9.460 miliardi di km.")
   );
   BANK.civica.push(
     q5("Quanti sono i principi fondamentali della Costituzione italiana?", ["12", "139", "9", "20"], "Sono gli articoli 1-12."),
