@@ -1703,8 +1703,8 @@ const SUP = (() => {
       return mk(`Quanto vale l'integrale di ${a} da 0 a ${L}?`, a * L, [a + L, a * L + a, a * L - L, L * L], `L'integrale di una costante è costante · ampiezza = ${a} · ${L} = ${a * L}.`);
     }
     if (t === 5) {   // limiti
-      const [l, r] = pick([["lim (x→∞) 1/x", "0"], ["lim (x→0) sen x / x", "1"], ["lim (x→∞) eˣ", "+∞"], ["lim (x→0⁺) ln x", "−∞"], ["lim (x→∞) (3x² + 1)/(x² − 5)", "3"], ["lim (x→∞) (2x + 1)/(x² + 3)", "0"], ["lim (x→∞) (5x³ + 1)/(x³ − 2x)", "5"], ["lim (x→∞) e⁻ˣ", "0"], ["lim (x→2) (x² − 4)/(x − 2)", "4"], ["lim (x→3) (x² − 9)/(x − 3)", "6"], ["lim (x→1) (x² − 1)/(x − 1)", "2"]]);
-      return mk(`Quanto vale ${l}?`, r, ["0", "1", "+∞", "−∞", "2", "3", "4", "5", "6"].filter(v => v !== r), `Si risolve con i limiti notevoli o con il confronto tra i gradi: il risultato è ${r}.`);
+      const [l, r, why] = pick([["lim (x→∞) 1/x", "0", "Il denominatore cresce senza limite, quindi la frazione tende a 0."], ["lim (x→0) sen x / x", "1", "È il limite notevole sen x / x → 1 per x → 0."], ["lim (x→∞) eˣ", "+∞", "L'esponenziale eˣ cresce senza limite."], ["lim (x→0⁺) ln x", "−∞", "Avvicinandosi a 0 da destra, ln x diventa sempre più negativo."], ["lim (x→∞) (3x² + 1)/(x² − 5)", "3", "I gradi sono uguali: il limite è il rapporto dei coefficienti direttivi, 3/1 = 3."], ["lim (x→∞) (2x + 1)/(x² + 3)", "0", "Il grado del denominatore (2) è maggiore di quello del numeratore (1): il limite è 0."], ["lim (x→∞) (5x³ + 1)/(x³ − 2x)", "5", "I gradi sono uguali: il limite è il rapporto dei coefficienti direttivi, 5/1 = 5."], ["lim (x→∞) e⁻ˣ", "0", "e⁻ˣ = 1/eˣ, e il denominatore cresce senza limite."], ["lim (x→2) (x² − 4)/(x − 2)", "4", "Si scompone x² − 4 = (x − 2)(x + 2) e si semplifica: resta x + 2, che per x → 2 vale 4."], ["lim (x→3) (x² − 9)/(x − 3)", "6", "Si scompone x² − 9 = (x − 3)(x + 3) e si semplifica: resta x + 3, che per x → 3 vale 6."], ["lim (x→1) (x² − 1)/(x − 1)", "2", "Si scompone x² − 1 = (x − 1)(x + 1) e si semplifica: resta x + 1, che per x → 1 vale 2."]]);
+      return mk(`Quanto vale ${l}?`, r, ["0", "1", "+∞", "−∞", "2", "3", "4", "5", "6"].filter(v => v !== r), why);
     }
     if (t === 6) {   // massimi e minimi
       const h = rnd(1, 6), k = rnd(1, 9);
@@ -1715,8 +1715,8 @@ const SUP = (() => {
       return mk(`Qual è il coefficiente angolare della retta tangente a y = ${a}x² nel punto di ascissa ${x0}?`, m, [a * x0 * x0, m + a, a * x0, 2 * a], `m = f'(${x0}) = 2·${a}·${x0} = ${m}.`);
     }
     if (t === 8) {   // dominio
-      const [f, d] = pick([["1/(x − 2)", "x ≠ 2"], ["√(x − 3)", "x ≥ 3"], ["ln(x)", "x > 0"], ["1/(x + 5)", "x ≠ −5"], ["√(x + 1)", "x ≥ −1"], ["ln(x − 4)", "x > 4"], ["1/x²", "x ≠ 0"]]);
-      return mk(`Qual è il dominio di f(x) = ${f}?`, d, ["x ≠ 2", "x ≥ 3", "x > 0", "x ≠ −5", "x ≥ −1", "x > 4", "x ≠ 0", "x < 0", "x ≤ 0", "x ≠ 1"].filter(v => v !== d), `Il denominatore non si annulla, il radicando è ≥ 0 e l'argomento del logaritmo è > 0: ${d}.`);
+      const [f, d, why] = pick([["1/(x − 2)", "x ≠ 2", "Il denominatore non può essere zero: x − 2 ≠ 0, quindi x ≠ 2."], ["√(x − 3)", "x ≥ 3", "Il radicando deve essere ≥ 0: x − 3 ≥ 0, quindi x ≥ 3."], ["ln(x)", "x > 0", "L'argomento del logaritmo deve essere > 0: x > 0."], ["1/(x + 5)", "x ≠ −5", "Il denominatore non può essere zero: x + 5 ≠ 0, quindi x ≠ −5."], ["√(x + 1)", "x ≥ −1", "Il radicando deve essere ≥ 0: x + 1 ≥ 0, quindi x ≥ −1."], ["ln(x − 4)", "x > 4", "L'argomento del logaritmo deve essere > 0: x − 4 > 0, quindi x > 4."], ["1/x²", "x ≠ 0", "Il denominatore non può essere zero: x² ≠ 0, quindi x ≠ 0."]]);
+      return mk(`Qual è il dominio di f(x) = ${f}?`, d, ["x ≠ 2", "x ≥ 3", "x > 0", "x ≠ −5", "x ≥ −1", "x > 4", "x ≠ 0", "x < 0", "x ≤ 0", "x ≠ 1"].filter(v => v !== d), why);
     }
     const m = rnd(20, 90), s = rnd(2, 9);   // statistica
     const dati = [m - s, m, m + s, m];
@@ -1772,7 +1772,7 @@ const SUP = (() => {
     q5("Di che cosa parla «Uno, nessuno e centomila»?", ["Della frantumazione dell'identità: ognuno appare diverso agli altri", "Di una guerra", "Di un viaggio", "Di una famiglia di pescatori"], "Il protagonista è Vitangelo Moscarda."),
     q5("Chi scrisse «La coscienza di Zeno»?", ["Italo Svevo", "Luigi Pirandello", "Giuseppe Ungaretti", "Eugenio Montale"], "È un romanzo sulla psicoanalisi e sulla «malattia»."),
     q5("Chi scrisse «L'allegria»?", ["Giuseppe Ungaretti", "Eugenio Montale", "Salvatore Quasimodo", "Umberto Saba"], "Raccoglie poesie nate dall'esperienza della guerra."),
-    q5("Che cosa descrive la poesia «Soldati» di Ungaretti?", ["La fragilità della vita dei soldati, come foglie d'autunno", "Una battaglia vittoriosa", "Un viaggio", "Una festa"], "È una delle poesie più brevi: «Si sta come d'autunno sugli alberi le foglie»."),
+    q5("Che cosa descrive la poesia «Soldati» di Ungaretti?", ["La fragilità della vita dei soldati, paragonata alle foglie d'autunno", "Una battaglia vittoriosa", "Un viaggio", "Una festa"], "È una delle poesie più brevi: la vita in trincea è precaria come le foglie in autunno."),
     q5("Chi scrisse «Ossi di seppia»?", ["Eugenio Montale", "Giuseppe Ungaretti", "Umberto Saba", "Giovanni Pascoli"], "È del 1925 e contiene «Spesso il male di vivere ho incontrato»."),
     q5("Che cos'è il «correlativo oggettivo» di Montale?", ["Un oggetto o una scena che esprime un'emozione senza dirla", "Una rima", "Un verso libero", "Un personaggio"], "Montale usa immagini concrete per dire sentimenti."),
     q5("Che cos'è l'Ermetismo?", ["La poesia essenziale e difficile del primo Novecento", "La poesia romantica", "La poesia barocca", "La poesia della Scapigliatura"], "Ne fu esponente anche Quasimodo."),
@@ -1821,7 +1821,7 @@ const SUP = (() => {
     q5("Che cosa furono le leggi razziali del 1938?", ["Norme che discriminavano gli ebrei in Italia", "Leggi sulla scuola", "Leggi sul lavoro", "Un trattato"], "Esclusero gli ebrei da scuole e impieghi."),
     q5("Che cos'è stata la crisi del 1929?", ["Un crollo della Borsa di New York che portò alla Grande depressione", "Una guerra", "Una rivoluzione", "Un trattato"], "Iniziò il 24 ottobre, il «giovedì nero»."),
     q5("Quale politica attuò Roosevelt per uscire dalla crisi?", ["Il New Deal", "Il Piano Marshall", "La NEP", "La dottrina Truman"], "Prevedeva grandi investimenti pubblici."),
-    q5("Che cosa fu il nazismo?", ["Il regime totalitario di Hitler in Germania", "Un partito italiano", "Un movimento comunista", "Una monarchia"], "Hitler fu cancelliere dal 1933."),
+    q5("Che cosa fu il nazismo?", ["Il regime totalitario di Hitler in Germania", "Un partito italiano", "Un movimento comunista", "Una monarchia"], "Hitler fu nominato cancelliere nel gennaio 1933 e instaurò in pochi mesi la dittatura."),
     q5("Quando iniziò la Seconda guerra mondiale?", ["Nel 1939, con l'invasione della Polonia", "Nel 1914", "Nel 1941", "Nel 1945"], "La Germania invase la Polonia il 1° settembre."),
     q5("Che cos'è la Shoah?", ["Lo sterminio sistematico degli ebrei da parte dei nazisti", "Una battaglia", "Un trattato", "Un partito"], "Morirono circa sei milioni di ebrei."),
     q5("Quando si celebra la Liberazione in Italia?", ["25 aprile", "2 giugno", "4 novembre", "1° maggio"], "Ricorda la liberazione dal nazifascismo, nel 1945."),
@@ -1836,7 +1836,7 @@ const SUP = (() => {
   );
   BANK.scienze.push(
     q5("Che cos'è il DNA?", ["La molecola che contiene l'informazione genetica", "Una proteina", "Un tipo di lipide", "Un ormone"], "Ha forma di doppia elica."),
-    q5("Chi scoprì la struttura a doppia elica del DNA?", ["Watson e Crick", "Mendel", "Darwin", "Pasteur"], "Nel 1953, grazie anche alle immagini di Rosalind Franklin."),
+    q5("Chi scoprì la struttura a doppia elica del DNA?", ["Watson e Crick", "Mendel", "Darwin", "Pasteur"], "Nel 1953, usando i dati dei raggi X di Rosalind Franklin e Maurice Wilkins."),
     q5("Quali sono le basi azotate del DNA?", ["Adenina, timina, citosina, guanina", "Adenina, uracile, citosina, guanina", "Glucosio, fruttosio, lattosio, saccarosio", "Alanina, glicina, serina, valina"], "A si lega a T, C si lega a G."),
     q5("Che cos'è un gene?", ["Un tratto di DNA che codifica una proteina o un carattere", "Una cellula", "Una proteina", "Un organo"], "I geni sono sui cromosomi."),
     q5("Quanti cromosomi ha una cellula somatica umana?", ["46", "23", "48", "44"], "23 coppie."),
