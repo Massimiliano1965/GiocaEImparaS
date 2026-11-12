@@ -154,3 +154,10 @@ body[data-sub="inglese"] { background-image: linear-gradient(rgba(5,11,26,.40), 
 body[data-sub="storia"] { background-image: linear-gradient(rgba(5,11,26,.40), rgba(5,11,26,.40)), url("../img/sfondo_storia.png"), linear-gradient(rgba(5,11,26,.78), rgba(5,11,26,.78)), url("../img/sfondo.png"); background-size: cover, cover, cover, cover; background-position: center; background-repeat: no-repeat; }
 body[data-sub="civica"] { background-image: linear-gradient(rgba(5,11,26,.40), rgba(5,11,26,.40)), url("../img/sfondo_civica.png"), linear-gradient(rgba(5,11,26,.78), rgba(5,11,26,.78)), url("../img/sfondo.png"); background-size: cover, cover, cover, cover; background-position: center; background-repeat: no-repeat; }
 body[data-sub="scienze"] { background-image: linear-gradient(rgba(5,11,26,.40), rgba(5,11,26,.40)), url("../img/sfondo_scienze.png"), linear-gradient(rgba(5,11,26,.78), rgba(5,11,26,.78)), url("../img/sfondo.png"); background-size: cover, cover, cover, cover; background-position: center; background-repeat: no-repeat; }
+
+/* versione web su schermo largo: il menu prende tutta la larghezza della colonna e la pagina scorre */
+@media (min-width: 700px) {
+  body.s-app .screen.s-home { height: auto; min-height: 100dvh; overflow: visible; }
+  .s-menu { flex: none; }
+  .s-menu-in { width: 100%; height: auto; }
+}
