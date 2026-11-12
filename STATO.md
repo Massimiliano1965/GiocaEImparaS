@@ -3,7 +3,7 @@ Aggiornato: 11/11/2026
 
 **Cos'è:** app separata da Gioca e Impara, per le scuole superiori. Ripasso a giochi sulle materie comuni a licei, tecnici e artistici. Uso libero: niente minuti, niente blocco, niente personaggi.
 **Web:** https://massimiliano1965.github.io/GiocaEImparaS/ (una volta sola: Settings > Pages > Source = GitHub Actions)
-**APK:** non ancora (per ora solo versione web).
+**APK:** https://github.com/Massimiliano1965/GiocaEImparaS/releases/download/apk-di-prova/GiocaEImparaS.apk (si ricostruisce da solo a ogni modifica in `www/` o `cordova/`, workflow `apk.yml`; APK di prova firmato debug; icona provvisoria in `cordova/res/icon.png`; plugin: tts-advanced e speechrecognition; voce e microfono non ancora provati su telefono).
 
 ## Fatto (primo pezzo, 11/11/2026)
 - 1ª superiore, sei materie: Matematica, Italiano, Inglese, Storia, Educazione civica, Scienze.
@@ -28,7 +28,6 @@ Aggiornato: 11/11/2026
 
 ## Da fare
 - Sfondi per materia: i prompt per Gemini sono pronti ma Gemini era al limite d'uso; Massi manda le immagini in ordine matematica, italiano, inglese, storia, civica, scienze.
-- APK Android.
 - «Slot frasi» e «Campo dei numeri» sono spenti: hanno ancora frasi e numeri da scuola media.
 - «Salva l'omino» ha ancora disegni da bambini; le regole appaiono le prime due volte e la schermata scorre un po'.
 - Non provati: voce reale su telefono e sito pubblico su telefono vero.
