@@ -27,7 +27,7 @@ Aggiornato: 11/11/2026
 - Sfondi per materia: in `s.css` c'è già il meccanismo `body[data-sub="..."]`; basta mettere `www/img/sfondo_<materia>.png` (matematica, italiano, inglese, storia, civica, scienze; 572×1024, senza scritte né persone). Se un file manca, resta lo sfondo comune.
 
 ## Da fare
-- Sfondi per materia: i prompt per Gemini sono pronti ma Gemini era al limite d'uso; Massi manda le immagini in ordine matematica, italiano, inglese, storia, civica, scienze.
+- Sfondi per materia: fatti matematica e italiano; mancano inglese, storia, civica, scienze (Massi li manda uno alla volta; i prompt sono in chat).
 - «Slot frasi» e «Campo dei numeri» sono spenti: hanno ancora frasi e numeri da scuola media.
 - «Salva l'omino» ha ancora disegni da bambini; le regole appaiono le prime due volte e la schermata scorre un po'.
 - Non provati: voce reale su telefono e sito pubblico su telefono vero.
