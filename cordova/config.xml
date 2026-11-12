@@ -1,0 +1,18 @@
+<?xml version='1.0' encoding='utf-8'?>
+<widget id="it.massimiliano.giocaeimparas" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:android="http://schemas.android.com/apk/res/android">
+  <name>Gioca e Impara S</name>
+  <description>Ripasso a giochi per le scuole superiori</description>
+  <author>Massimiliano</author>
+  <content src="index.html" />
+  <preference name="Orientation" value="portrait" />
+  <preference name="DisallowOverscroll" value="true" />
+  <preference name="android-minSdkVersion" value="24" />
+  <preference name="android-targetSdkVersion" value="34" />
+  <preference name="BackgroundColor" value="0xff050B1A" />
+  <icon src="res/icon.png" />
+  <platform name="android">
+    <allow-intent href="https://*/*" />
+  </platform>
+  <plugin name="cordova-plugin-tts-advanced" />
+  <plugin name="cordova-plugin-speechrecognition" />
+</widget>

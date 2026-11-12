@@ -1,0 +1,48 @@
+name: APK Android
+# Costruisce l'APK e lo mette nella Release «apk-di-prova»:
+# https://github.com/Massimiliano1965/GiocaEImparaS/releases/download/apk-di-prova/GiocaEImparaS.apk
+on:
+  push:
+    branches: [main]
+    paths: ['www/**', 'cordova/**', '.github/workflows/apk.yml']
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: apk
+  cancel-in-progress: true
+jobs:
+  apk:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with: { distribution: temurin, java-version: '17' }
+      - uses: actions/setup-node@v4
+        with: { node-version: '20' }
+      - name: Strumenti Android
+        run: |
+          yes | "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" --licenses > /dev/null || true
+          "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" "platforms;android-34" "build-tools;34.0.0" > /dev/null
+          npm install -g cordova@12
+      - name: Prepara il progetto Cordova
+        run: |
+          mkdir -p /tmp/app && cd /tmp/app
+          cordova create . it.massimiliano.giocaeimparas "Gioca e Impara S"
+          rm -rf www && cp -r "$GITHUB_WORKSPACE/www" www
+          cp "$GITHUB_WORKSPACE/cordova/config.xml" config.xml
+          cp -r "$GITHUB_WORKSPACE/cordova/res" res
+          # solo nella versione per telefono: carica cordova.js (serve a voce e microfono)
+          sed -i '0,/<script/s//<script src="cordova.js"><\/script>\n  <script/' www/index.html
+          grep -q 'cordova.js' www/index.html
+          cordova platform add android@13
+      - name: Costruisce l'APK
+        working-directory: /tmp/app
+        run: cordova build android --debug
+      - name: Pubblica nella Release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          cp /tmp/app/platforms/android/app/build/outputs/apk/debug/app-debug.apk GiocaEImparaS.apk
+          gh release view apk-di-prova >/dev/null 2>&1 || gh release create apk-di-prova --title "APK di prova" --notes "APK più recente di Gioca e Impara S (si aggiorna a ogni modifica)."
+          gh release upload apk-di-prova GiocaEImparaS.apk --clobber
