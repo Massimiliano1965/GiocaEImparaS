@@ -20,14 +20,18 @@ Aggiornato: 11/11/2026
 - Correzione motore in `games.js` (`pairsFor`, ramo inglese): i temi di coppie ora sono filtrati per classe con `Questions.inClass`; prima comparivano voci da 1ª anche nelle altre classi.
 - Prova: `node` con un test su ogni anno (4 risposte uniche, coppie ≥ 4, regola `askRules` per ogni prompt, 3000 giri di matematica) e prova a tappeto nel browser (300 giochi per materia e anno, 0 errori).
 
+## Fatto il 12/11/2026
+- Controllo dei contenuti 1ª–5ª fatto con un secondo parere (Gemini); correzioni applicate. Per rifarlo: i file con tutte le domande si generano leggendo `s_data.js` (nessuna copia in repo).
+- Parola segreta e Trova le parole: coppie con risposta di una parola aggiunte (blocco «COPPIE CON RISPOSTA DI UNA PAROLA» in `s_data.js`), partono in tutti gli anni (non in matematica, voluto).
+- «Chi sono?»: indizi per 2ª–5ª in `WHOY[classe][materia]` dentro `s_magazzino.js`; la 1ª resta in `WHO`.
+- Sfondi per materia: in `s.css` c'è già il meccanismo `body[data-sub="..."]`; basta mettere `www/img/sfondo_<materia>.png` (matematica, italiano, inglese, storia, civica, scienze; 572×1024, senza scritte né persone). Se un file manca, resta lo sfondo comune.
+
 ## Da fare
-- Massi deve rileggere le domande, soprattutto Storia ed Educazione civica (anche gli anni delle stime).
-- Sfondo diverso per ogni materia dentro i giochi (immagini di Gemini, una per materia, senza scritte).
+- Sfondi per materia: i prompt per Gemini sono pronti ma Gemini era al limite d'uso; Massi manda le immagini in ordine matematica, italiano, inglese, storia, civica, scienze.
 - APK Android.
-- «Chi sono?» ha gli indizi dentro `s_magazzino.js` (`WHO`, sei per materia, solo 1ª superiore): vanno aggiunti per gli altri anni. La voce per ora legge solo il titolo, non gli indizi.
 - «Slot frasi» e «Campo dei numeri» sono spenti: hanno ancora frasi e numeri da scuola media.
 - «Salva l'omino» ha ancora disegni da bambini; le regole appaiono le prime due volte e la schermata scorre un po'.
-- Non provati: voce reale su telefono e sito pubblico su telefono vero dopo l'ultimo fix.
+- Non provati: voce reale su telefono e sito pubblico su telefono vero.
 
 ## Come aggiungere contenuti a un anno
 Tutto sta in `www/js/s_data.js`. Anni: 9 = 2ª, 10 = 3ª, 11 = 4ª, 12 = 5ª.
