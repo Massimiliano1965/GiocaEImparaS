@@ -161,3 +161,16 @@ body[data-sub="scienze"] { background-image: linear-gradient(rgba(5,11,26,.40), 
   .s-menu { flex: none; }
   .s-menu-in { width: 100%; height: auto; }
 }
+
+/* ricerca */
+.s-top-btns { display: flex; gap: 8px; }
+.s-input { flex: 1; min-width: 0; height: 44px; padding: 0 14px; font: inherit; font-size: 17px; color: var(--ink); background: var(--panel); border: 1.5px solid var(--line); border-radius: 14px; }
+.s-input:focus { outline: none; border-color: #6FB6FF; }
+.s-res { display: flex; flex-direction: column; gap: 10px; overflow-y: auto; }
+.s-card { padding: 10px 12px; background: var(--panel); border: 1.5px solid var(--line); border-left: 4px solid var(--sc); border-radius: 12px; }
+.s-card-h { display: flex; justify-content: space-between; font-size: 12px; color: var(--muted); }
+.s-card-h b { color: var(--sc); font-weight: 600; }
+.s-card-q { margin: 4px 0; font-size: 15px; color: var(--ink); }
+.s-card-a { margin: 0 0 4px; font-size: 15px; font-weight: 600; color: #7BE38B; }
+.s-card-e { margin: 0; font-size: 13px; color: var(--muted); }
+.s-none { color: var(--muted); text-align: center; margin-top: 24px; }

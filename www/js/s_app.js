@@ -32,7 +32,9 @@
     ear: I('<path d="M4 9v6h4l5 4V5L8 9H4z"/><path d="M16.5 8.5a5 5 0 0 1 0 7"/>'),
     mix: I('<path d="M4 7h3c5 0 5 10 10 10h3M4 17h3c1.6 0 2.7-1 3.6-2.3M17 4l3 3-3 3M17 14l3 3-3 3M13.4 9.3C14.3 8 15.4 7 17 7h3"/>'),
     ok: I('<path d="M5 12.5l4.5 4.5L19 7.5"/>'),
-    ko: I('<path d="M6 6l12 12M18 6L6 18"/>')
+    ko: I('<path d="M6 6l12 12M18 6L6 18"/>'),
+    search: I('<circle cx="11" cy="11" r="6.5"/><path d="M16 16l5 5"/>'),
+    mic: I('<rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5.5 11a6.5 6.5 0 0 0 13 0M12 17.5V21"/>')
   };
 
   // ---------------------------------------------------------------- dati salvati sul dispositivo
@@ -79,7 +81,7 @@
     document.body.dataset.sub = "";
     const pct = store.tot ? Math.round((store.ok / store.tot) * 100) : 0;
     $app.innerHTML = `<section class="screen s-home">
-      <header class="s-top"><h1>Gioca e Impara <b>S</b></h1>${voiceBtn()}</header>
+      <header class="s-top"><h1>Gioca e Impara <b>S</b></h1><span class="s-top-btns"><button class="s-ic" data-act="search" aria-label="Cerca un argomento">${ICON.search}</button>${voiceBtn()}</span></header>
       <div class="s-years" role="group" aria-label="Anno di scuola">${YEARS.map(y => `<button class="s-year ${y.id === store.year ? "on" : ""}" data-act="year" data-y="${y.id}" ${y.ready ? "" : "disabled"}><b>${y.label}</b><small>${y.ready ? "superiore" : "in arrivo"}</small></button>`).join("")}</div>
       <div class="s-menu"><div class="s-menu-in">
         <img src="img/menu.png" alt="">
@@ -90,6 +92,56 @@
         <div class="s-stat"><span>${ICON.ok}<b>${store.ok}</b> riuscite</span><span>${ICON.flame}<b>${store.best}</b> di fila</span><span><b>${pct}%</b> giuste</span></div>
       </div>
     </section>`;
+  }
+
+  // ---------------------------------------------------------------- ricerca (scritta o a voce)
+  const fold = t => String(t || "").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+  let searchIndex = null;
+  function buildIndex() {
+    const out = [];
+    SUBJ.forEach(s => {
+      const arr = (typeof QBANK !== "undefined" && QBANK[s.id] && QBANK[s.id].S) || [];
+      arr.forEach(x => { if (x && x.q && x.a) out.push({ sub: s.id, cl: x.cl, t: x.q, r: x.a[x.c || 0], e: x.e || "", key: fold(x.q + " " + x.a[x.c || 0] + " " + (x.e || "")) }); });
+      const pr = (SUP.pairs && SUP.pairs[s.id]) || [];
+      pr.forEach(g => (g.pairs || []).forEach(p => out.push({ sub: s.id, cl: g.cl, t: p[0], r: p[1], e: g.prompt || "", key: fold(p[0] + " " + p[1]), pair: true })));
+    });
+    return out;
+  }
+  function runSearch(text) {
+    if (!searchIndex) searchIndex = buildIndex();
+    const w = fold(text).split(/[^a-z0-9]+/).filter(x => x.length > 1);
+    if (!w.length) return [];
+    return searchIndex.filter(x => w.every(k => x.key.includes(k)))
+      .sort((a, b) => (+w.every(k => fold(b.t).includes(k))) - (+w.every(k => fold(a.t).includes(k))) || (a.pair ? 1 : 0) - (b.pair ? 1 : 0))
+      .slice(0, 40);
+  }
+  const yearOf = cl => { const a = cl && cl[0]; const y = YEARS.find(v => v.id === a); return y ? y.label : ""; };
+  function showResults(text) {
+    const box = document.getElementById("s-res"); if (!box) return;
+    const res = runSearch(text);
+    if (!text.trim()) { box.innerHTML = ""; return; }
+    if (!res.length) { box.innerHTML = `<p class="s-none">Nessun risultato per «${esc(text)}».</p>`; return; }
+    box.innerHTML = res.map(x => { const sj = SUBJ.find(v => v.id === x.sub); return `<article class="s-card" style="--sc:${sj.color}"><div class="s-card-h"><b>${esc(sj.name)}</b><small>${yearOf(x.cl)}</small></div>` +
+      (x.pair ? `<p class="s-card-q">${esc(x.t)}</p><p class="s-card-a">${esc(x.r)}</p><p class="s-card-e">${esc(x.e)}</p>` : `<p class="s-card-q">${esc(x.t)}</p><p class="s-card-a">${esc(x.r)}</p>${x.e ? `<p class="s-card-e">${esc(x.e)}</p>` : ""}`) + `</article>`; }).join("");
+  }
+  function searchScreen() {
+    game = null; hush(); Games.stop(); document.body.dataset.sub = "";
+    $app.innerHTML = `<section class="screen s-search">
+      <div class="s-bar"><button class="s-ic" data-act="exit" aria-label="Torna indietro">${ICON.close}</button>
+        <input id="s-q" class="s-input" type="search" placeholder="Argomento, formula, nome…" autocomplete="off" aria-label="Cerca">
+        <button class="s-ic" data-act="mic" aria-label="Cerca con la voce">${ICON.mic}</button></div>
+      <div id="s-res" class="s-res"></div></section>`;
+    const inp = document.getElementById("s-q");
+    inp.addEventListener("input", () => showResults(inp.value));
+    inp.focus();
+  }
+  function micSearch() {
+    const inp = document.getElementById("s-q"); if (!inp) return;
+    if (!Voice.canListen()) { document.getElementById("s-res").innerHTML = `<p class="s-none">Il microfono non è disponibile qui: scrivi la ricerca.</p>`; return; }
+    const btn = document.querySelector('[data-act="mic"]'); btn.classList.add("on");
+    Voice.listen().then(m => { if (m && m[0]) { inp.value = m[0].replace(/[.!?]+$/, ""); showResults(inp.value); } })
+      .catch(() => { document.getElementById("s-res").innerHTML = `<p class="s-none">Non ti ho sentito: riprova o scrivi.</p>`; })
+      .then(() => btn.classList.remove("on"));
   }
 
   // ---------------------------------------------------------------- una partita
@@ -211,6 +263,8 @@
     } else if (act === "year") { store.year = +el.dataset.y; save(); home(); }
     else if (act === "play") { Sfx.tap(); start(el.dataset.sub); }
     else if (act === "exit") home();
+    else if (act === "search") searchScreen();
+    else if (act === "mic") micSearch();
     else if (act === "ans") answer(+el.dataset.i);
     else if (act === "next") nextRound();
     else if (act === "repeat") repeat();
