@@ -174,3 +174,10 @@ body[data-sub="scienze"] { background-image: linear-gradient(rgba(5,11,26,.40), 
 .s-card-a { margin: 0 0 4px; font-size: 15px; font-weight: 600; color: #7BE38B; }
 .s-card-e { margin: 0; font-size: 13px; color: var(--muted); }
 .s-none { color: var(--muted); text-align: center; margin-top: 24px; }
+
+/* schermo largo: l'immagine verticale della materia si ripete in orizzontale a tutta altezza, così si vede intera */
+@media (min-width: 700px) {
+  body[data-sub="matematica"], body[data-sub="italiano"], body[data-sub="inglese"], body[data-sub="storia"], body[data-sub="civica"], body[data-sub="scienze"] {
+    background-size: cover, auto 100vh, cover, cover; background-repeat: no-repeat, repeat-x, no-repeat, no-repeat; background-position: center, center top, center, center;
+  }
+}
