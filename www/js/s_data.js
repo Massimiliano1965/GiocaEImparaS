@@ -2030,6 +2030,34 @@ const SUP = (() => {
     [/movimento alla sua caratteristica/, "Qual è la caratteristica del ", "?"]
   );
 
+  // ================================================================ COPPIE CON RISPOSTA DI UNA PAROLA (per Parola segreta e Trova le parole)
+  const { T: tw8 } = H([8, 8]), { T: tw9 } = H([9, 9]), { T: tw11 } = H([11, 11]), { T: tw12 } = H([12, 12]);
+  pairs.storia.push(
+    tw8("Collega ogni monumento alla sua civiltà.", [["Piramidi", "Egizi"], ["Partenone", "Greci"], ["Colosseo", "Romani"], ["Ziggurat", "Sumeri"]]),
+    tw9("Collega ogni sovrano al suo popolo.", [["Attila", "Unni"], ["Clodoveo", "Franchi"], ["Teodorico", "Ostrogoti"], ["Alarico", "Visigoti"]]),
+    tw11("Collega ogni scienziato alla sua scoperta.", [["Newton", "Gravità"], ["Lavoisier", "Ossigeno"], ["Volta", "Pila"], ["Jenner", "Vaccino"]]),
+    tw12("Collega ogni dittatore al suo Paese.", [["Mussolini", "Italia"], ["Hitler", "Germania"], ["Franco", "Spagna"], ["Salazar", "Portogallo"]])
+  );
+  pairs.italiano.push(
+    tw12("Collega ogni scrittore alla sua città natale.", [["Verga", "Catania"], ["D'Annunzio", "Pescara"], ["Svevo", "Trieste"], ["Montale", "Genova"], ["Pirandello", "Agrigento"], ["Primo Levi", "Torino"]])
+  );
+  pairs.civica.push(
+    tw9("Collega ogni organizzazione al suo scopo.", [["ONU", "Pace"], ["UNICEF", "Infanzia"], ["UNESCO", "Cultura"], ["OMS", "Salute"], ["FAO", "Cibo"]]),
+    tw12("Collega ogni sigla al suo ambito.", [["GDPR", "Privacy"], ["SPID", "Identità"], ["NATO", "Difesa"], ["OMC", "Commercio"], ["BCE", "Moneta"]])
+  );
+  pairs.scienze.push(
+    tw9("Collega ogni simbolo al suo elemento.", [["H", "Idrogeno"], ["O", "Ossigeno"], ["C", "Carbonio"], ["N", "Azoto"], ["Fe", "Ferro"], ["Na", "Sodio"]])
+  );
+  askRules.push(
+    [/monumento alla sua civiltà/, "Quale popolo è legato a ", "?"],
+    [/sovrano al suo popolo/, "Di quale popolo fu re ", "?"],
+    [/dittatore al suo Paese/, "Di quale Paese fu dittatore ", "?"],
+    [/scrittore alla sua città natale/, "In quale città nacque ", "?"],
+    [/organizzazione al suo scopo/, "Qual è lo scopo principale di ", "?"],
+    [/sigla al suo ambito/, "A quale ambito appartiene ", "?"],
+    [/simbolo al suo elemento/, "Di quale elemento è il simbolo ", "?"]
+  );
+
   const inYear = (arr, c) => { const f = (arr || []).filter(x => !x.cl || (c >= x.cl[0] && c <= x.cl[1])); return f.length ? f : (arr || []); };
   return { math, mathPairs, filaMath, askRules, pairs, seqs, errors, mathError, stima, mathStima, cloze, inYear, pick, shuffle, rnd };
 })();
