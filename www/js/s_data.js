@@ -1793,7 +1793,7 @@ const SUP = (() => {
     q5("Completa: «He is said ___ a fortune.»", ["to have made", "making", "to make", "that made"], "Passivo impersonale con infinito passato.", { ae: true, en: ["He is said ___ a fortune."] }),
     q5("Completa: «The more you practise, ___ you become.»", ["the better", "better", "the best", "good"], "Doppio comparativo: the more… the better.", { ae: true, en: ["The more you practise, ___ you become."] }),
     q5("Completa: «Not only ___ late, but he also forgot the documents.»", ["was he", "he was", "he is", "is he"], "Con «not only» all'inizio la frase si inverte.", { ae: true, en: ["Not only ___ late, but he also forgot the documents."] }),
-    q5("Completa: «I'm not used ___ up so early.»", ["to getting", "to get", "getting", "get"], "«Be used to» è seguito da -ing.", { ae: true, en: ["I'm not used ___ up so early."] }),
+    q5("Completa: «I'm not used to ___ up so early.»", ["getting", "get", "got", "gets"], "«Be used to» è seguito da -ing.", { ae: true, en: ["I'm not used to ___ up so early."] }),
     q5("Completa: «She must ___ the news; she looks shocked.»", ["have heard", "hear", "heard", "be hearing"], "«Must have» + participio passato: deduzione sul passato.", { ae: true, en: ["She must ___ the news; she looks shocked."] }),
     q5("Completa: «You ___ have told me earlier!»", ["should", "must", "can", "would"], "«Should have» esprime un rimprovero.", { ae: true, en: ["You ___ have told me earlier!"] }),
     q5("Completa: «The suspect denied ___ involved in the crime.»", ["being", "to be", "be", "been"], "Deny + gerundio passivo.", { ae: true, en: ["The suspect denied ___ involved in the crime."] }),
@@ -2013,7 +2013,7 @@ const SUP = (() => {
     CL5("She suggested ___ to the cinema.", ["going", "to go", "go", "went"], "Suggest + -ing.", { en: true }),
     CL5("The more you practise, ___ you become.", ["the better", "better", "the best", "good"], "Doppio comparativo.", { en: true }),
     CL5("Not only ___ late, but he also forgot the documents.", ["was he", "he was", "he is", "is he"], "Inversione con «not only».", { en: true }),
-    CL5("I'm not used ___ up so early.", ["to getting", "to get", "getting", "get"], "Be used to + -ing.", { en: true }),
+    CL5("I'm not used to ___ up so early.", ["getting", "get", "got", "gets"], "Be used to + -ing.", { en: true }),
     CL5("She must ___ the news; she looks shocked.", ["have heard", "hear", "heard", "be hearing"], "Deduzione sul passato.", { en: true }),
     CL5("You ___ have told me earlier!", ["should", "must", "can", "would"], "Rimprovero.", { en: true }),
     CL5("___ he was tired, he kept working.", ["Although", "Despite", "Because", "So"], "Although + soggetto e verbo.", { en: true })
