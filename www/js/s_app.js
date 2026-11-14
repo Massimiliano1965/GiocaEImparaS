@@ -139,8 +139,8 @@
     if (!searchIndex) searchIndex = buildIndex();
     const w = fold(text).split(/[^a-z0-9]+/).filter(x => x.length > 1);
     if (!w.length) return [];
-    return searchIndex.filter(x => w.every(k => x.key.includes(k)))
-      .sort((a, b) => (+w.every(k => fold(b.t).includes(k))) - (+w.every(k => fold(a.t).includes(k))) || (a.pair ? 1 : 0) - (b.pair ? 1 : 0))
+    return searchIndex.filter(x => w.every(k => (" " + x.key.replace(/[^a-z0-9]+/g, " ") + " ").includes(" " + k + (k.length <= 3 ? " " : ""))))
+      .sort((a, b) => (+w.every(k => (" " + fold(b.t)).includes(" " + k))) - (+w.every(k => (" " + fold(a.t)).includes(" " + k))) || (a.pair ? 1 : 0) - (b.pair ? 1 : 0))
       .slice(0, 40);
   }
   const yearOf = cl => { const a = cl && cl[0]; const y = YEARS.find(v => v.id === a); return y ? y.label : ""; };
