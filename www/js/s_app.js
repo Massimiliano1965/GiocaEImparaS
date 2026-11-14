@@ -74,10 +74,10 @@
   Games.setSpeak(card => say(Speech.fin(card.mq ? Speech.mqSegs(card.mq) : card.sort ? Speech.sortSegs(card) : card.words ? Speech.oddSegs(card) : Speech.vfSegs(card))), () => !!store.voice);
 
   // ---------------------------------------------------------------- schermata iniziale
-  let game = null;
+  let game = null, burst = null, burstPick = false;
   const voiceBtn = () => `<button class="s-ic ${store.voice ? "on" : "off"}" data-act="voice" aria-label="${store.voice ? "Voce accesa: tocca per spegnerla" : "Voce spenta: tocca per accenderla"}" aria-pressed="${store.voice}">${store.voice ? ICON.voiceOn : ICON.voiceOff}</button>`;
   function home() {
-    game = null; hush(); Games.stop();
+    game = null; burst = null; hush(); Games.stop();
     document.body.dataset.sub = "";
     const pct = store.tot ? Math.round((store.ok / store.tot) * 100) : 0;
     $app.innerHTML = `<section class="screen s-home">
@@ -89,7 +89,8 @@
       </div></div>
       <div class="s-foot">
         <button class="s-mix" data-act="play" data-sub="mista">${ICON.mix}<span>Sfida mista</span></button>
-        <div class="s-stat"><span>${ICON.ok}<b>${store.ok}</b> riuscite</span><span>${ICON.flame}<b>${store.best}</b> di fila</span><span><b>${pct}%</b> giuste</span></div>
+        <button class="s-mix s-bast ${burstPick ? "on" : ""}" data-act="bastarda" aria-pressed="${burstPick}">${ICON.bolt}<span>Raffica Bastarda</span></button>
+        ${burstPick ? `<div class="s-stat"><span class="s-pickmsg">Scegli la materia della raffica (5 su 5, o si ricomincia)</span></div>` : `<div class="s-stat"><span>${ICON.ok}<b>${store.ok}</b> riuscite</span><span>${ICON.flame}<b>${store.best}</b> di fila</span><span><b>${pct}%</b> giuste</span></div>`}
       </div>
     </section>`;
   }
@@ -203,7 +204,11 @@
   function readNow() {
     if (!game || !store.voice) return;
     if (game.round) { say(Speech.roundSpeech(game.round)); return; }
-    const q = game.q, segs = [...Speech.langSegs(q.q, q.en), { t: ". " }];
+    readQ(game.q);
+  }
+  function readQ(q) {
+    if (!store.voice) return;
+    const segs = [...Speech.langSegs(q.q, q.en), { t: ". " }];
     q.a.forEach((a, i) => segs.push({ t: "ABCD"[i] + ": " }, ...Speech.ansSegs(q, a), { t: ". " }));
     say(Speech.fin(segs));
   }
@@ -250,6 +255,105 @@
     }
   }
 
+
+  // ---------------------------------------------------------------- Raffica Bastarda
+  // 5 domande a risposta multipla. Se sbagli anche una sola volta la raffica ricomincia da capo
+  // (domande e risposte in un altro ordine) finché non fai 5 su 5. È la ripetizione mascherata da sfida.
+  const BURST_N = 5;
+  const BURST_KO = ["Ci sei cascato.", "Quasi. Cioè no.", "Sbagliato. Da capo.", "Era facile, e lo sai.", "Ahi. Si ricomincia."];
+  const shuf = a => { a = a.slice(); for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; };
+  // stessa domanda, risposte in un altro ordine (mantiene spiegazione e marcatori inglesi)
+  const reorder = q => {
+    const it = shuf(q.a.map((t, i) => ({ t, ok: i === q.c })));
+    const o = { q: q.q, a: it.map(x => x.t), c: it.findIndex(x => x.ok), e: q.e || "", sid: q.sid };
+    if (q.en) o.en = q.en; if (q.ae) o.ae = true; return o;
+  };
+  function buildBurstSet(sub) {
+    const qs = [], seen = new Set();
+    for (let i = 0; i < 80 && qs.length < BURST_N; i++) {
+      const sid = sub === "mista" ? pick(SUBJ).id : sub;
+      const q = Questions.next(sid, store.year);
+      if (q && q.q && !seen.has(q.q)) { seen.add(q.q); q.sid = sid; qs.push(q); }
+    }
+    return qs;
+  }
+  function startBurst(sub) {
+    burstPick = false; game = null; hush(); Games.stop();
+    const qs = buildBurstSet(sub);
+    if (qs.length < 3) { home(); return; }
+    burst = { sub, qs, idx: 0, attempt: 1, errors: 0, stumbles: {}, t0: Date.now(), locked: false };
+    renderBurstQ();
+  }
+  function renderBurstQ() {
+    const b = burst, q = b.qs[b.idx], s = SUBJ.find(x => x.id === q.sid);
+    b.locked = false; document.body.dataset.sub = s.id;
+    $app.innerHTML = `<section class="screen play quiz s-play s-quiz s-burst" id="s-burst">
+      <div class="s-bar" style="--sc:${s.color}">
+        <button class="s-ic" data-act="exit" aria-label="Torna alle materie">${ICON.close}</button>
+        <span class="s-tag"><b>${esc(s.name)}</b> · Raffica, tentativo ${b.attempt}</span>
+        ${voiceBtn()}
+      </div>
+      <div class="s-dots" role="img" aria-label="Domanda ${b.idx + 1} di ${b.qs.length}">${b.qs.map((_, i) => `<i class="${i < b.idx ? "d" : i === b.idx ? "n" : ""}"></i>`).join("")}</div>
+      <div class="s-prompt" id="bubble"><p>${esc(q.q)}</p></div>
+      <div class="s-answers">${q.a.map((a, i) => `<button class="s-ans" data-act="bans" data-i="${i}"${q.ae ? ' lang="en"' : ""}><b>${"ABCD"[i]}</b><span>${esc(a)}</span></button>`).join("")}</div>
+      <div id="gfb"></div>
+    </section>`;
+    window.scrollTo(0, 0);
+    readQ(q);
+  }
+  function burstAnswer(i) {
+    const b = burst; if (!b || b.locked) return;
+    const q = b.qs[b.idx], ok = i === q.c; b.locked = true; hush();
+    document.querySelectorAll(".s-ans").forEach((x, k) => { x.disabled = true; x.classList.add(k === q.c ? "right" : k === i ? "wrong" : "dim"); });
+    store.tot++; if (ok) store.ok++; save();
+    if (ok) {
+      Sfx.ok();
+      setTimeout(() => { if (burst !== b) return; b.idx++; if (b.idx >= b.qs.length) renderBurstEnd(); else renderBurstQ(); }, 750);
+      return;
+    }
+    Sfx.no(); b.errors++; b.stumbles[q.q] = (b.stumbles[q.q] || 0) + 1;
+    const sec = document.getElementById("s-burst"); if (sec) sec.classList.add("s-shake");
+    const title = pick(BURST_KO), fb = document.getElementById("gfb"); if (!fb) return;
+    fb.innerHTML = `<div class="s-fb ko" role="status" aria-live="polite">
+      <div class="s-fb-head"><span class="s-fb-ic">${ICON.ko}</span><h2>${esc(title)}</h2></div>
+      <p class="s-sol"><small>Soluzione</small><b${q.ae ? ' lang="en"' : ""}>${esc(q.a[q.c])}</b></p>
+      ${q.e ? `<p class="s-expl">${esc(q.e)}</p>` : ""}
+      <p class="s-expl">La raffica ricomincia da capo, con le domande in un altro ordine. Si vince solo con ${b.qs.length} su ${b.qs.length}.</p>
+      <div class="s-fb-btn one"><button class="s-btn" data-act="brestart">${ICON.again}<span>Ricomincia</span></button></div>
+    </div>`;
+    fb.scrollIntoView({ block: "nearest", behavior: "smooth" });
+    if (store.voice) { const segs = [{ t: title + " Soluzione: " }, { t: Speech.toSpeech(q.a[q.c]) + ". ", l: q.ae ? "en" : "" }]; if (q.e) segs.push({ t: Speech.toSpeech(q.e) }); say(Speech.fin(segs)); }
+  }
+  function burstRestart() {
+    const b = burst; if (!b) return;
+    b.qs = shuf(b.qs).map(reorder); b.idx = 0; b.attempt++;
+    renderBurstQ();
+  }
+  const burstRank = n => n === 1 ? "Impassibile. O l'avevi già studiato." : n === 2 ? "Testardo con metodo." : n <= 4 ? "Maratoneta della ripetizione." : "Martire del ripasso (ma ora lo sai).";
+  function renderBurstEnd() {
+    const b = burst, sec = Math.round((Date.now() - b.t0) / 1000), time = Math.floor(sec / 60) + ":" + String(sec % 60).padStart(2, "0");
+    const worst = Object.entries(b.stumbles).sort((x, y) => y[1] - x[1]).slice(0, 3);
+    const title = burstRank(b.attempt);
+    document.body.dataset.sub = "";
+    Sfx.ok();
+    $app.innerHTML = `<section class="screen play s-play s-burst-end">
+      <div class="s-bar"><button class="s-ic" data-act="exit" aria-label="Torna alle materie">${ICON.close}</button><span class="s-tag"><b>Raffica</b> · chiusa</span>${voiceBtn()}</div>
+      <div class="s-fb ok" role="status">
+        <p class="s-rank">Titolo sbloccato</p>
+        <div class="s-fb-head"><span class="s-fb-ic">${ICON.ok}</span><h2>${esc(title)}</h2></div>
+        <div class="s-stats3">
+          <div><small>Tentativi</small><b>${b.attempt}</b></div>
+          <div><small>Errori</small><b>${b.errors}</b></div>
+          <div><small>Tempo</small><b>${time}</b></div>
+        </div>
+        ${worst.length ? `<p class="s-expl"><b>Dove hai inciampato</b></p><ul class="s-stumble">${worst.map(([q, c]) => `<li>${esc(q)} (${c}×)</li>`).join("")}</ul>` : `<p class="s-expl">Nessun inciampo. Ripassa tra un paio di giorni, quando avrai dimenticato qualcosa.</p>`}
+        <div class="s-fb-btn"><button class="s-btn alt" data-act="exit"><span>Materie</span></button><button class="s-btn" data-act="bmore">${ICON.again}<span>Un'altra raffica</span></button></div>
+      </div>
+    </section>`;
+    window.scrollTo(0, 0);
+    if (store.voice) say(Speech.fin([{ t: "Titolo sbloccato: " + title }]));
+  }
+
   // ---------------------------------------------------------------- tocchi
   document.addEventListener("click", e => {
     const el = e.target.closest("[data-act]"); if (!el) return;
@@ -260,9 +364,14 @@
       if (!store.voice) Voice.stopSpeaking();
       document.querySelectorAll('[data-act="voice"]').forEach(b => { b.outerHTML = voiceBtn(); });
       if (store.voice && game && !game.done) readNow();
+      else if (store.voice && burst && !burst.locked && burst.idx < burst.qs.length) readQ(burst.qs[burst.idx]);
     } else if (act === "year") { store.year = +el.dataset.y; save(); home(); }
-    else if (act === "play") { Sfx.tap(); start(el.dataset.sub); }
-    else if (act === "exit") home();
+    else if (act === "play") { Sfx.tap(); if (burstPick) startBurst(el.dataset.sub); else start(el.dataset.sub); }
+    else if (act === "bastarda") { Sfx.tap(); burstPick = !burstPick; home(); }
+    else if (act === "bans") burstAnswer(+el.dataset.i);
+    else if (act === "brestart") burstRestart();
+    else if (act === "bmore") startBurst(burst ? burst.sub : "mista");
+    else if (act === "exit") { burstPick = false; home(); }
     else if (act === "search") searchScreen();
     else if (act === "mic") micSearch();
     else if (act === "ans") answer(+el.dataset.i);
@@ -270,7 +379,7 @@
     else if (act === "repeat") repeat();
   });
   // tasto indietro: dalla partita si torna alle materie, non si esce dall'app
-  document.addEventListener("backbutton", e => { if (game) { e.preventDefault(); home(); } else if (navigator.app && navigator.app.exitApp) navigator.app.exitApp(); }, false);
+  document.addEventListener("backbutton", e => { if (game || burst || burstPick) { e.preventDefault(); burstPick = false; home(); } else if (navigator.app && navigator.app.exitApp) navigator.app.exitApp(); }, false);
 
   home();
 })();

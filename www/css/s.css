@@ -31,10 +31,10 @@ body.s-app svg { flex: none; }
 .s-band { position: absolute; left: 0; width: 100%; padding: 0; background: transparent; border: 0; border-radius: 0; }
 .s-band:active { background: color-mix(in srgb, var(--sc) 22%, transparent); }
 .s-lv { position: absolute; right: 8px; bottom: 8px; display: inline-flex; align-items: center; gap: 3px; padding: 2px 8px; font-size: 12px; font-weight: 600; color: #06122B; background: var(--sc); border-radius: 999px; }
-.s-foot { display: flex; align-items: center; gap: 10px; }
-.s-mix { flex: none; display: inline-flex; align-items: center; gap: 8px; height: 46px; padding: 0 14px; font: inherit; font-weight: 600; font-size: 16px; color: #06122B; background: #6FB6FF; border: 0; border-radius: 14px; }
+.s-foot { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 10px; }
+.s-mix { flex: 1 1 0; justify-content: center; display: inline-flex; align-items: center; gap: 8px; height: 46px; padding: 0 14px; font: inherit; font-weight: 600; font-size: 16px; color: #06122B; background: #6FB6FF; border: 0; border-radius: 14px; }
 .s-mix svg { font-size: 20px; }
-.s-stat { flex: 1; display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 4px 12px; font-size: 13px; color: var(--muted); }
+.s-stat { flex: 1 1 100%; display: flex; flex-wrap: wrap; justify-content: center; gap: 4px 12px; font-size: 13px; color: var(--muted); }
 .s-stat span { display: inline-flex; align-items: center; gap: 4px; }
 .s-stat b { color: var(--ink); font-weight: 600; }
 
@@ -181,3 +181,21 @@ body[data-sub="scienze"] { background-image: linear-gradient(rgba(5,11,26,.40), 
     background-size: cover, auto 100vh, cover, cover; background-repeat: no-repeat, repeat-x, no-repeat, no-repeat; background-position: center, center top, center, center;
   }
 }
+
+/* ---- Raffica Bastarda (senza transizioni sui pulsanti) */
+.s-bast { color: #FFB86B; background: transparent; border: 1.5px solid #FFB86B; }
+.s-bast.on { color: #06122B; background: #FFB86B; }
+.s-pickmsg { color: #FFB86B; font-weight: 600; text-align: center; }
+.s-dots { display: flex; gap: 6px; }
+.s-dots i { flex: 1; height: 8px; border-radius: 4px; background: rgba(255,255,255,.16); border: 1.5px solid transparent; }
+.s-dots i.d { background: #34a847; }
+.s-dots i.n { background: transparent; border-color: #FFB86B; }
+@keyframes s-shake { 0%, 100% { transform: translateX(0); } 20% { transform: translateX(-8px); } 40% { transform: translateX(7px); } 60% { transform: translateX(-5px); } 80% { transform: translateX(3px); } }
+.s-shake .s-prompt, .s-shake .s-answers { animation: s-shake .38s; }
+.s-fb-btn.one { grid-template-columns: 1fr; }
+.s-rank { margin: 0 0 6px; font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: #FFB86B; }
+.s-stats3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin: 12px 0; }
+.s-stats3 div { padding: 8px 10px; border: 1.5px solid var(--line); border-radius: 12px; }
+.s-stats3 small { display: block; font-size: 12px; color: var(--muted); }
+.s-stats3 b { font-size: 22px; font-weight: 600; }
+.s-stumble { margin: 6px 0 0; padding-left: 18px; font-size: 14px; color: var(--muted); }

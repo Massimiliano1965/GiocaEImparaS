@@ -26,6 +26,9 @@ Aggiornato: 11/11/2026
 - «Chi sono?»: indizi per 2ª–5ª in `WHOY[classe][materia]` dentro `s_magazzino.js`; la 1ª resta in `WHO`.
 - Sfondi per materia: in `s.css` c'è già il meccanismo `body[data-sub="..."]`; basta mettere `www/img/sfondo_<materia>.png` (matematica, italiano, inglese, storia, civica, scienze; 572×1024, senza scritte né persone). Se un file manca, resta lo sfondo comune.
 
+## Fatto il 14/11/2026
+- Raffica Bastarda: bottone accanto a «Sfida mista», si sceglie la materia (o la mista). 5 domande dell'anno scelto; un errore e la raffica ricomincia da capo (ordine di domande e risposte cambiato) fino a 5 su 5; chiusura con tentativi, errori, tempo, domande su cui si è inciampato e titolo ironico. Codice in `s_app.js` (sezione «Raffica Bastarda») e in fondo a `s.css`. Non ancora: ancoraggio (storia/barzelletta) e tranello (servono contenuti per materia e anno); risposta col microfono.
+
 ## Da fare
 - Sfondi per materia: fatti tutti e sei (matematica, italiano, inglese, storia, civica in verde/bianco/rosso, scienze). Per cambiarne uno: sostituire `www/img/sfondo_<materia>.png` (572×1024).
 - «Slot frasi» e «Campo dei numeri» sono spenti: hanno ancora frasi e numeri da scuola media.
