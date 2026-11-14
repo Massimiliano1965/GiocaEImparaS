@@ -38,7 +38,7 @@ jobs:
           cordova platform add android@13
       - name: Costruisce l'APK
         working-directory: /tmp/app
-        run: cordova build android --debug
+        run: cordova build android --debug -- --keystore="$GITHUB_WORKSPACE/cordova/giocaeimparas.keystore" --storePassword=giocaeimparas --alias=giocaeimparas --password=giocaeimparas
       - name: Pubblica nella Release
         env:
           GH_TOKEN: ${{ github.token }}
