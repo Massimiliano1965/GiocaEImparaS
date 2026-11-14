@@ -10,6 +10,9 @@
   <preference name="android-targetSdkVersion" value="34" />
   <preference name="BackgroundColor" value="0xff050B1A" />
   <preference name="AndroidWindowSplashScreenBackground" value="#050B1A" />
+  <preference name="AndroidWindowSplashScreenAnimatedIcon" value="res/splash.png" />
+  <preference name="AutoHideSplashScreen" value="true" />
+  <preference name="SplashScreenDelay" value="1500" />
   <icon src="res/icon.png" />
   <platform name="android">
     <allow-intent href="https://*/*" />
