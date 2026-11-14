@@ -34,6 +34,7 @@
     ok: I('<path d="M5 12.5l4.5 4.5L19 7.5"/>'),
     ko: I('<path d="M6 6l12 12M18 6L6 18"/>'),
     search: I('<circle cx="11" cy="11" r="6.5"/><path d="M16 16l5 5"/>'),
+    help: I('<circle cx="12" cy="12" r="9"/><path d="M9.5 9.5a2.5 2.5 0 1 1 3.6 2.2c-.7.4-1.1.9-1.1 1.8M12 17v.2"/>'),
     mic: I('<rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5.5 11a6.5 6.5 0 0 0 13 0M12 17.5V21"/>')
   };
 
@@ -81,7 +82,7 @@
     document.body.dataset.sub = "";
     const pct = store.tot ? Math.round((store.ok / store.tot) * 100) : 0;
     $app.innerHTML = `<section class="screen s-home">
-      <header class="s-top"><h1>Gioca e Impara <b>S</b></h1><span class="s-top-btns"><button class="s-ic" data-act="search" aria-label="Cerca un argomento">${ICON.search}</button>${voiceBtn()}</span></header>
+      <header class="s-top"><h1>Gioca e Impara <b>S</b></h1><span class="s-top-btns"><button class="s-ic" data-act="intro" aria-label="Come funziona">${ICON.help}</button><button class="s-ic" data-act="search" aria-label="Cerca un argomento">${ICON.search}</button>${voiceBtn()}</span></header>
       <div class="s-years" role="group" aria-label="Anno di scuola">${YEARS.map(y => `<button class="s-year ${y.id === store.year ? "on" : ""}" data-act="year" data-y="${y.id}" ${y.ready ? "" : "disabled"}><b>${y.label}</b><small>${y.ready ? "superiore" : "in arrivo"}</small></button>`).join("")}</div>
       <div class="s-menu"><div class="s-menu-in">
         <img src="img/menu.png" alt="">
@@ -93,6 +94,32 @@
         ${burstPick ? `<div class="s-stat"><span class="s-pickmsg">Scegli la materia della raffica (5 su 5, o si ricomincia)</span></div>` : `<div class="s-stat"><span>${ICON.ok}<b>${store.ok}</b> riuscite</span><span>${ICON.flame}<b>${store.best}</b> di fila</span><span><b>${pct}%</b> giuste</span></div>`}
       </div>
     </section>`;
+  }
+
+  // ---------------------------------------------------------------- presentazione (si apre da sola la prima volta; dopo, dal tasto «?»)
+  const INTRO = [
+    { ic: '<rect x="3" y="4" width="18" height="4" rx="1"/><rect x="3" y="10" width="18" height="4" rx="1"/><rect x="3" y="16" width="18" height="4" rx="1"/>', t: "Scegli anno e materia", d: "In alto tocchi l'anno (1ª–5ª superiore), poi una delle sei materie. «Sfida mista» le mescola tutte." },
+    { ic: '<path d="M13 2L5 14h6l-1 8 8-12h-6l1-8z"/>', t: "Giochi e domande", d: "Ogni giro è un gioco diverso o una domanda. Nessun timer da inseguire e nessun blocco: giochi quanto vuoi." },
+    { ic: '<circle cx="11" cy="11" r="6.5"/><path d="M16 16l5 5"/>', t: "Cerca quello che ti serve", d: "Con la lente scrivi, o dici a voce, un argomento, una formula o un nome storico e trovi le schede." },
+    { ic: '<path d="M12 3c1 3.5 5 5 5 10a5 5 0 0 1-10 0c0-2 1-3.2 2-4.2C9.5 11 11 10 12 3z"/>', t: "Raffica Bastarda", d: "Accendila prima di scegliere la materia: cinque domande di fila, un errore e si ricomincia da capo." },
+    { ic: '<path d="M4 9v6h4l5 4V5L8 9H4z"/><path d="M16.5 8.5a5 5 0 0 1 0 7M19 6a8.5 8.5 0 0 1 0 12"/>', t: "Anche a voce", d: "L'altoparlante legge le domande e il microfono ti fa rispondere parlando. Puoi spegnerli quando vuoi." }
+  ];
+  function intro(first) {
+    let n = 0;
+    const done = () => { store.intro = 1; save(); const o = document.getElementById("s-intro"); if (o) o.remove(); };
+    const draw = () => {
+      const o = document.getElementById("s-intro") || document.body.appendChild(Object.assign(document.createElement("div"), { id: "s-intro", className: "s-intro" }));
+      const x = INTRO[n], last = n === INTRO.length - 1;
+      o.innerHTML = `<div class="s-intro-card" role="dialog" aria-label="Come funziona">
+        <div class="s-intro-ic"><svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${x.ic}</svg></div>
+        <h2>${esc(x.t)}</h2><p>${esc(x.d)}</p>
+        <div class="s-intro-dots">${INTRO.map((_, i) => `<i class="${i === n ? "on" : ""}"></i>`).join("")}</div>
+        <div class="s-fb-btn"><button class="s-btn alt" data-act="introskip">${last ? "Chiudi" : "Salta"}</button><button class="s-btn" data-act="${last ? "introskip" : "intronext"}"><span>${last ? "Inizia" : "Avanti"}</span>${last ? "" : ICON.next}</button></div>
+      </div>`;
+    };
+    intro.next = () => { n++; draw(); };
+    intro.close = done;
+    draw();
   }
 
   // ---------------------------------------------------------------- ricerca (scritta o a voce)
@@ -373,6 +400,9 @@
     else if (act === "bmore") startBurst(burst ? burst.sub : "mista");
     else if (act === "exit") { burstPick = false; home(); }
     else if (act === "search") searchScreen();
+    else if (act === "intro") intro();
+    else if (act === "intronext") intro.next();
+    else if (act === "introskip") intro.close();
     else if (act === "mic") micSearch();
     else if (act === "ans") answer(+el.dataset.i);
     else if (act === "next") nextRound();
@@ -382,4 +412,5 @@
   document.addEventListener("backbutton", e => { if (game || burst || burstPick) { e.preventDefault(); burstPick = false; home(); } else if (navigator.app && navigator.app.exitApp) navigator.app.exitApp(); }, false);
 
   home();
+  if (!store.intro) intro(true);
 })();
